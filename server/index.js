@@ -9,12 +9,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
 const {Test} = require('./models');
-const {DATABASE_URL, PORT} = require ('./config');
 
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
-  CLIENT_SECRET: process.env.CLIENT_SECRET
-}
+  CLIENT_SECRET: process.env.CLIENT_SECRET,
+  DATABASE_URL: process.env.DATABASE_URL || global.DATABASE_URL
+};
 
 if(process.env.NODE_ENV != 'production') {
   secret = require('./secret');
@@ -103,7 +103,7 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(databaseUrl=DATABASE_URL, port=3001) {
+function runServer(databaseUrl=secret.DATABASE_URL, port=3001) {
     return new Promise((resolve, reject) => {
         console.log(databaseUrl);
         mongoose.connect(databaseUrl, err=>{
