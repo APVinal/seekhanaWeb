@@ -1,8 +1,15 @@
+'use strict';
+
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
+
+const {Test} = require('./models');
+const {DATABASE_URL, PORT} = require ('./config');
 
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -96,11 +103,21 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(port=3001) {
+function runServer(databaseUrl=DATABASE_URL, port=3001) {
     return new Promise((resolve, reject) => {
+        console.log(databaseUrl);
+        mongoose.connect(databaseUrl, err=>{
+            if(err){
+                return reject(err);
+            };
+        });
         server = app.listen(port, () => {
+            console.log('Your app is listening on', port);
             resolve();
-        }).on('error', reject);
+        }).on('error', err => {
+            mongoose.disconnect();
+            reject(err);
+        });
     });
 }
 
