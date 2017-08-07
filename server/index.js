@@ -134,7 +134,7 @@ function closeServer() {
 }
 
 if (require.main === module) {
-    runServer(undefined, process.env.PORT || 8080);
+    runServer();
 }
 
 module.exports = {
