@@ -8,7 +8,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
-const {Test} = require('./models');
+const {User, Lesson} = require('./models');
 
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -26,6 +26,7 @@ const database = {
 };
 
 app.use(passport.initialize());
+
 
 passport.use(
     new GoogleStrategy({
@@ -60,6 +61,8 @@ passport.use(
     )
 );
 
+// app.use(bodyParser);
+
 app.get('/api/auth/google',
     passport.authenticate('google', {scope: ['profile']}));
 
@@ -70,7 +73,12 @@ app.get('/api/auth/google/callback',
     }),
     (req, res) => {
         res.cookie('accessToken', req.user.accessToken, {expires: 0});
-        console.log(req.user);
+        User
+            .find({googleId: req.user.googleId})
+            .count()
+            .then(count=> {if(!count){
+                User.create({googleId: req.user.googleId, accessToken: req.user.accessToken})
+            }});
         res.redirect('/');
     }
 );
@@ -93,6 +101,50 @@ app.get('/api/questions',
     (req, res) => res.json(['Question 1', 'Question 2'])
 );
 
+const jsonParser = bodyParser.json();
+
+app.post('/api/lessons',
+    passport.authenticate('bearer', {session: false}),
+    jsonParser,
+    (req,res) => {
+        Lesson
+            .create({
+                title: req.body.title,
+                questions: req.body.questions
+            })
+            .then(res=> console.log(res))
+            .catch(err=> console.log(err));
+    }
+);
+
+app.get('/api/lessons',
+    passport.authenticate('bearer', {session:false}),
+    (req,res) => {
+        Lesson
+            .find()
+            .then(lessons => {
+                res.json(lessons);
+            })
+            .catch(err => {
+                res.json(err);
+            });
+    }
+);
+
+app.get('/api/lessons/:lessonId',
+    passport.authenticate('bearer', {session:false}),
+    (req,res) => {
+        Lesson
+            .findById(req.params.lessonId)
+            .then(lesson => {
+                res.json(lesson);
+            })
+            .catch(err => {
+                res.json(err);
+            });
+    }
+);
+
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
@@ -113,7 +165,6 @@ function runServer(databaseUrl=secret.DATABASE_URL, port=3001) {
             };
         });
         server = app.listen(port, () => {
-            console.log('Your app is listening on', port);
             resolve();
         }).on('error', err => {
             mongoose.disconnect();
