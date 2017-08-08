@@ -1,11 +1,23 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 class Lessons extends Component {
   render(){
     return (
-      <div>This will be a list of the lessons</div>
+      <section>
+      <div>
+        <a href={'/api/auth/logout'}><button>Log Out</button></a>
+      </div>
+      <div>
+        Lessons will be here
+      </div>
+      </section>
     );
   }
 }
 
-export default Lessons;
+const mapStatetoProps = state => ({
+
+});
+
+export default connect(mapStatetoProps)(Lessons);
