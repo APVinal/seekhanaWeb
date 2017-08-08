@@ -11,6 +11,12 @@ export const fetchLoginSuccess = user => ({
   user
 });
 
+export const FETCH_LESSONS_SUCCESS = 'FETCH_LESSONS_SUCCESS';
+export const fetchLessonsSuccess = lessons => ({
+  type: FETCH_LESSONS_SUCCESS,
+  lessons
+});
+
 export const FETCH_ERROR = 'FETCH_ERROR';
 export const fetchError = error => ({
   type: FETCH_ERROR,
@@ -18,33 +24,4 @@ export const fetchError = error => ({
 });
 
 
-export const fetchLogin = () => dispatch => {
-  const url = 'http://seekhana.herokuapp.com' || 'http://localhost:8080';
-  const accessToken = Cookies.get('accessToken');
-
-  dispatch(fetchRequest());
-
-  if(accessToken){
-    return fetch(`${url}/api/me`, {
-      method: 'get',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      }
-    }).then(res => {
-      if (!res.ok) {
-        if (res.status === 401){
-          Cookies.remove('accessToken');
-          return;
-        }
-        throw new Error(res.statusText);
-      }
-      return res.json();
-    }).then(_user => {
-      const user = _user.user;
-      return dispatch(fetchLoginSuccess(user));
-    }).catch(error => 
-      dispatch(fetchError(error)));
-  }
-
-}
 
