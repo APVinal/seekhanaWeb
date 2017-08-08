@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 import { fetchUser, fetchLessons } from '../actions/actions'
+import { Link } from 'react-router-dom';
 
 class Lessons extends Component {
   componentDidMount() {
@@ -14,8 +15,16 @@ class Lessons extends Component {
     }
   }
 
-
   render(){
+    if(!this.props.lessons){
+      return <p>Error loading lessons</p>;
+    }
+
+    // const lessons = this.props.lessons.map((lesson, index) => (
+    //   <li key={index}>
+    //     <a href={`/api/users/:userId/lessons/`}>{lesson.title}</a>
+    //   </li>
+    // ));
 
     return (
       <section>
@@ -23,7 +32,9 @@ class Lessons extends Component {
         <a href={'/api/auth/logout'}><button>Log Out</button></a>
       </div>
       <div>
-        Lessons will be here
+        <ul>
+          {/*{lessons}*/}
+        </ul>
       </div>
       </section>
     );
@@ -31,7 +42,8 @@ class Lessons extends Component {
 }
 
 const mapStatetoProps = state => ({
-
+  // lessons: state.lessons,
+  // userId: state.googleId
 });
 
 export default connect(mapStatetoProps)(Lessons);

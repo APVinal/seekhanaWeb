@@ -9,7 +9,6 @@ REMOVE_ACCESS_TOKEN
 
 const initialState = {
   loading: false,
-  currentUser: null,
   googleId: null,
   userLessons: [],
   accessToken: null,
@@ -27,7 +26,6 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       loading: false,
       error: null,
-      currentUser: action.user.name,
       googleId: action.user.googleId,
       userLessons: action.user.lessons
     });
@@ -45,6 +43,7 @@ export default (state=initialState, action) => {
       accessToken: null
     });
   } else if (action.type === FETCH_LESSONS_SUCCESS) {
+    console.log('hit here');
     return Object.assign({}, state, {
       loading: false,
       error: null, 
