@@ -84,11 +84,11 @@ app.get('/api/auth/google/callback',
     }
 );
 
-app.get('/api/users/:userId', 
+app.get('/api/users/:accessToken', 
     passport.authenticate('bearer', {session: false}),
     (req,res) =>{
         User
-            .find({googleId: req.params.userId})
+            .find({accessToken: req.params.accessToken})
             .then(user => {
                 res.json(user);
             });
