@@ -10,6 +10,8 @@ const BearerStrategy = require('passport-http-bearer').Strategy;
 
 const {User, Lesson} = require('./models');
 
+const jsonParser = bodyParser.json();
+
 let secret = {
   CLIENT_ID: process.env.CLIENT_ID,
   CLIENT_SECRET: process.env.CLIENT_SECRET,
@@ -112,7 +114,22 @@ app.get('/api/questions',
     (req, res) => res.json(['Question 1', 'Question 2'])
 );
 
-const jsonParser = bodyParser.json();
+app.put('/api/users/:userId/lessons/',
+    passport.authenticate('bearer', {session: false}),
+    jsonParser,
+    (req,res) => {
+        console.log(req.body);
+        User
+            .update({googleId: req.params.userId}, {$push:{lessons:req.body}})
+            .exec()
+            .then(() => {
+                User
+                    .find({googleId: req.params.userId})
+                    .then(res=> console.log(res));
+            });
+
+    }
+);
 
 app.post('/api/lessons',
     passport.authenticate('bearer', {session: false}),
