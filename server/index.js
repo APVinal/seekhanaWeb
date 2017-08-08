@@ -79,10 +79,20 @@ app.get('/api/auth/google/callback',
                 if(err !== null){
                     throw new Error(err);
                 }
-                res.cookie('accessToken', req.user.accessToken, {expires: 0}).json(user);
+                res.cookie('accessToken', req.user.accessToken, {expires: 0}).redirect('/');
             });
     }
 );
+
+app.get('/api/users/:userId', 
+    passport.authenticate('bearer', {session: false}),
+    (req,res) =>{
+        User
+            .find({googleId: req.params.userId})
+            .then(user => {
+                res.json(user);
+            });
+});
 
 app.get('/api/auth/logout', (req, res) => {
     req.logout();
