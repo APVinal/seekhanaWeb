@@ -1,18 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import * as Cookies from 'js-cookie';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import Lessons from './lesson';
+import Login from './login-page';
 
-import QuestionPage from './question-page';
-import LoginPage from './login-page';
+export default class App extends Component {
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentUser: null
-        };
-    }
-
-    componentDidMount() {
+      componentDidMount() {
         // Job 4: Redux-ify all of the state and fetch calls to async actions.
         const accessToken = Cookies.get('accessToken');
         if (accessToken) {
@@ -31,21 +25,23 @@ class App extends React.Component {
                     throw new Error(res.statusText);
                 }
                 return res.json();
-            }).then(currentUser =>
-                this.setState({
-                    currentUser
-                })
+            }).then(currentUser => {
+                // console.log(currentUser)
+                return this.setState({currentUser})}
             );
         }
     }
 
-    render() {
-        if (!this.state.currentUser) {
-            return <LoginPage />;
-        }
-
-        return <QuestionPage />;
-    }
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route exact path='/' component={Login}/>
+          <Route exact path='asdf/asdf' component={Lessons}/>
+        </div>
+      </Router>
+    );
+  }
 }
 
-export default App;
+
