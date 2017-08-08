@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const findOrCreate = require('mongoose-find-or-create');
 
 const userSchema = mongoose.Schema({
   googleId: {type: String, required:true},
@@ -23,6 +24,8 @@ const choiceSchema = mongoose.Schema({
   text: {type: String, required:true},
   correct: {type: Boolean, required:true, default:false}
 });
+
+userSchema.plugin(findOrCreate);
 
 const User = mongoose.model('User', userSchema);
 const Lesson = mongoose.model('Lesson', lessonSchema);

@@ -72,14 +72,15 @@ app.get('/api/auth/google/callback',
         session: false
     }),
     (req, res) => {
-        res.cookie('accessToken', req.user.accessToken, {expires: 0});
+        let user;
         User
-            .find({googleId: req.user.googleId})
-            .count()
-            .then(count=> {if(!count){
-                User.create({googleId: req.user.googleId, accessToken: req.user.accessToken})
-            }});
-        res.redirect('/');
+            .findOrCreate({googleId: req.user.googleId}, {accessToken: req.user.accessToken}, (err,result) =>{
+                user = result;
+                if(err !== null){
+                    throw new Error(err);
+                }
+                res.cookie('accessToken', req.user.accessToken, {expires: 0}).json(user);
+            });
     }
 );
 
