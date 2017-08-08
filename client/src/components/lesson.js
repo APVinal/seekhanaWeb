@@ -1,13 +1,22 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as Cookies from 'js-cookie';
+import { fetchUser, fetchLessons } from '../actions/actions'
 
 class Lessons extends Component {
-  componentWillMount(){
-    //one dispatch to grab the user
-    //one dispatch to grab the lessons
-
+  componentDidMount() {
+    // Job 4: Redux-ify all of the state and fetch calls to async actions.
+    const accessToken = Cookies.get('accessToken');
+    
+    if (accessToken) {
+      this.props.dispatch(fetchUser(accessToken));
+      this.props.dispatch(fetchLessons(accessToken));
+    }
   }
+
+
   render(){
+
     return (
       <section>
       <div>
