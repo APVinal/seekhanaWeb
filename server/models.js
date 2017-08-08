@@ -83,3 +83,53 @@ module.exports = {User, Lesson};
 //     ]
 // 	})
 // });
+
+// fetch('/api/users/105096498899488197479/lessons/',{
+// 	method: 'PUT',
+// 	headers:{
+//     'Content-Type': 'application/json'
+//   },
+// 	body: JSON.stringify({
+// 		title: 'Lil Test',
+// 		questions: [
+//       {
+//         text:'Q1',
+//         choices:[
+//           {
+//             text:'A1'
+//           },
+//           {
+//             text:'A2',
+//             correct: true
+//           },
+//           {
+//             text:'A3'
+//           },
+//           {
+//             text:'A4'
+//           },
+//         ],
+//         pronunciation: 'AHHHHH'
+//       },
+//       {
+//         text:'Q2',
+//         choices:[
+//           {
+//             text:'A1'
+//           },
+//           {
+//             text:'A2',
+//             correct: true
+//           },
+//           {
+//             text:'A3'
+//           },
+//           {
+//             text:'A4'
+//           },
+//         ],
+//         pronunciation: 'AHHHHH'
+//       }
+//     ]
+// 	})
+// });
