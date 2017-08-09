@@ -1,0 +1,99 @@
+*{
+  box-sizing:border-box;
+  font-family: 'Hind Vadodara', sans-serif;
+}
+
+.container{
+  display:flex;
+}
+
+body{
+  background-color:#C45AB3;
+}
+
+header{
+  width:100%;
+  background-color:#70146a;
+  display:flex;
+  padding:10px;
+  padding-left:50px;
+  padding-right:50px;
+  font-weight:600;
+  color:#fc5e21;
+}
+
+.logo{
+  display:flex;
+  flex-direction:column;
+}
+
+.latin{
+  margin-top:-5px;
+  text-align: center;
+  font-weight:400;
+}
+
+.hindi{
+  font-size:40px;
+  margin-bottom:3px;
+}
+
+/* .parent{
+  max-width:500px;
+  margin:auto;
+  margin-top:30px;
+  height:600px;
+} */
+
+.namaste{
+  margin:auto;
+  font-weight:600;
+  font-size:80px;
+  min-width:7px;
+}
+
+.helloText{
+  padding-right:5px;
+}
+
+@keyframes cursor-blink{
+  0%{opacity:1;}
+  50%{opacity:0;}
+  100%{opacity:1;}
+}
+
+.landing{
+  width:100%;
+  overflow:hidden;
+}
+
+.cursor{
+  background-color:white;
+  width:5px;
+  height:80px;
+  animation-name:cursor-blink;
+  animation-duration:1.5s;
+  animation-iteration-count:infinite;
+}
+
+.mandala{
+  width:300px;
+  height:300px;
+  fill:#fc5e21;
+}
+
+.bg{
+  position:absolute;
+  z-index:-1111;
+  width:100%;
+  height:80%;
+  overflow:hidden;
+}
+
+.bg-pattern{
+  width:200%;
+  margin-left:-600px;
+  margin-top:-600px;
+  height:auto;
+  opacity:.3;
+}

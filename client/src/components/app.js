@@ -10,9 +10,12 @@ export default class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path='/' component={Login}/>
-          <Route exact path='/lessons' component={Lessons}/>
-          <Route exact path='/lesson/:lessonId' component={QuestionPage}/>
+           <header><div className="logo"><span className="logoText hindi">सीखना</span><span className="logoText latin">seekhana</span></div></header> 
+          <div className="parent container">
+            <Route exact path='/' component={Login}/>
+            <Route exact path='/lessons' component={Lessons}/>
+            <Route exact path='/lesson/:lessonId' component={QuestionPage}/>
+          </div>
         </div>
       </Router>
     );
