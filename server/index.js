@@ -9,6 +9,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
 const {User, Lesson} = require('./models');
+const LinkedList = require('./linkedList');
 
 const jsonParser = bodyParser.json();
 
@@ -138,7 +139,7 @@ app.put('/api/users/:userId/lessons/',
 );
 
 app.post('/api/lessons',
-    passport.authenticate('bearer', {session: false}),
+    // passport.authenticate('bearer', {session: false}),
     jsonParser,
     (req,res) => {
         Lesson
