@@ -17,6 +17,12 @@ export const fetchLessonsSuccess = lessons => ({
   lessons
 });
 
+export const ADD_LESSON_SUCCESS = 'ADD_LESSON_SUCCESS';
+export const addLessonSuccess = user => ({
+  type: ADD_LESSON_SUCCESS,
+  user
+})
+
 export const FETCH_ERROR = 'FETCH_ERROR';
 export const fetchError = error => ({
   type: FETCH_ERROR,
@@ -34,10 +40,17 @@ export const removeAccessToken = () => ({
   type: REMOVE_ACCESS_TOKEN
 });
 
+export const ADD_LESSON = 'ADD_LESSON';
+export const addLesson = lesson => ({
+  type: ADD_LESSON,
+  lesson
+});
+
+
+
 export const fetchUser = accessToken => dispatch => {
   dispatch(fetchRequest());
   dispatch(setAccessToken(accessToken));
-  console.log(accessToken);
   fetch(`/api/users/${accessToken}`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
@@ -55,7 +68,6 @@ export const fetchUser = accessToken => dispatch => {
       }
       return res.json();
     }).then(currentUser => {
-      console.log(currentUser);
      dispatch(fetchLoginSuccess(currentUser))
     }).catch(err => {
       dispatch(fetchError(err));
@@ -63,6 +75,7 @@ export const fetchUser = accessToken => dispatch => {
 }
 
 export const fetchLessons = accessToken => dispatch => {
+  dispatch(fetchRequest());
   fetch('/api/lessons', {
     headers: {
       'Authorization': `Bearer ${accessToken}`
@@ -78,3 +91,44 @@ export const fetchLessons = accessToken => dispatch => {
     dispatch(fetchError(error));
   });
 }
+
+export const updateUserLessons = (accessToken, userId, lesson) => dispatch => {
+  dispatch(fetchRequest());
+  fetch(`/api/users/${userId}/lessons/`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(lesson)
+  }).then(response => {
+    if(!response.ok) {
+      console.log('yup it failed');
+      return Promise.reject(response.statusText);
+    }
+    return response.json();
+  }).then(user => {
+    dispatch(addLessonSuccess(user));
+  }).catch(error => {
+    dispatch(fetchError(error));
+  })
+}
+
+// export const fetchLesson = (accessToken, lessonId) => dispatch => {
+//   fetch(`/api/lessons/${lessonId}`, {
+//     headers: {
+//       'Authorization': `Bearer ${accessToken}`
+//     } 
+//   }).then(response => {
+//     if(!response.ok) {
+//       return Promise.reject(response.statusText);
+//     }
+//     return response.json();
+//   }).then(lesson => {
+//     dispatch(fetchLessonSuccess(lesson));
+//   }).catch(error => {
+//     dispatch(fetchError(error));
+//   });
+// }
+
+// export const addLesson = (accessToken, )

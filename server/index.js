@@ -124,14 +124,17 @@ app.put('/api/users/:userId/lessons/',
     passport.authenticate('bearer', {session: false}),
     jsonParser,
     (req,res) => {
-        console.log(req.body);
+        console.log('this is our put request', req.body);
         User
             .update({googleId: req.params.userId}, {$push:{lessons:req.body}})
             .exec()
             .then(() => {
                 User
                     .find({googleId: req.params.userId})
-                    .then(res=> console.log(res));
+                    .then(_res => {
+                      console.log(_res);
+                      res.json(_res);
+                    });
             });
 
     }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import fetchLogin from '../actions/actions';
 import {connect} from 'react-redux';
 
  class Login extends Component {

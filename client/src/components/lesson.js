@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
-import { fetchUser, fetchLessons } from '../actions/actions'
-import { Link } from 'react-router-dom';
+import { fetchUser, fetchLessons, addLesson, updateUserLessons } from '../actions/actions'
 
 class Lessons extends Component {
+
   componentDidMount() {
-    // Job 4: Redux-ify all of the state and fetch calls to async actions.
     const accessToken = Cookies.get('accessToken');
     
     if (accessToken) {
@@ -15,16 +14,39 @@ class Lessons extends Component {
     }
   }
 
+  checkTitle(arr, obj) {
+    if (!arr[0]){
+      return false;
+    }else{
+      for(let i = 0; i < arr.length; i++){
+        if(arr[i].title === obj.title){
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  addQuiz(accessToken, lesson, userId) {
+      if(this.checkTitle(this.props.userLessons, lesson)){
+        this.props.dispatch(addLesson(lesson._id));
+      }else{
+        this.props.dispatch(updateUserLessons(accessToken, userId, lesson));
+      }
+     
+  }
+  
+
   render(){
     if(!this.props.lessons){
       return <p>Error loading lessons</p>;
     }
-
-    // const lessons = this.props.lessons.map((lesson, index) => (
-    //   <li key={index}>
-    //     <a href={`/api/users/:userId/lessons/`}>{lesson.title}</a>
-    //   </li>
-    // ));
+    const lessons = this.props.lessons.map((lesson, index) => (
+      <li key={index}>
+        <button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button>
+      </li>
+    ));
 
     return (
       <section>
@@ -32,8 +54,9 @@ class Lessons extends Component {
         <a href={'/api/auth/logout'}><button>Log Out</button></a>
       </div>
       <div>
+        <p> Beginner lessons </p>
         <ul>
-          {/*{lessons}*/}
+          {lessons}
         </ul>
       </div>
       </section>
@@ -42,8 +65,10 @@ class Lessons extends Component {
 }
 
 const mapStatetoProps = state => ({
-  // lessons: state.lessons,
-  // userId: state.googleId
+  lessons: state.lessons,
+  userId: state.googleId,
+  accessToken: state.accessToken,
+  userLessons: state.userLessons
 });
 
 export default connect(mapStatetoProps)(Lessons);

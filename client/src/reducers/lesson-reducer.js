@@ -2,9 +2,11 @@ import{
 FETCH_REQUEST,
 FETCH_LOGIN_SUCCESS,
 FETCH_LESSONS_SUCCESS,
+ADD_LESSON_SUCCESS,
 FETCH_ERROR,
 SET_ACCESS_TOKEN,
-REMOVE_ACCESS_TOKEN
+REMOVE_ACCESS_TOKEN,
+ADD_LESSON
 } from '../actions/actions';
 
 const initialState = {
@@ -13,8 +15,8 @@ const initialState = {
   userLessons: [],
   accessToken: null,
   error: null,
-  lessons: []
-
+  lessons: [],
+  currentLesson: null
 };
 
 export default (state=initialState, action) => {
@@ -26,8 +28,8 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       loading: false,
       error: null,
-      googleId: action.user.googleId,
-      userLessons: action.user.lessons
+      googleId: action.user[0].googleId,
+      userLessons: action.user[0].lessons
     });
   } else if (action.type === FETCH_ERROR) {
     return Object.assign({}, state, {
@@ -43,11 +45,21 @@ export default (state=initialState, action) => {
       accessToken: null
     });
   } else if (action.type === FETCH_LESSONS_SUCCESS) {
-    console.log('hit here');
     return Object.assign({}, state, {
       loading: false,
       error: null, 
       lessons: action.lessons
+    });
+  } else if (action.type === ADD_LESSON) {
+    return Object.assign({}, state, {
+      currentLesson: action.lesson
+    });
+  } else if (action.type === ADD_LESSON_SUCCESS) {
+    return Object.assign({}, state, {
+      laoding: false,
+      error: null,
+      userLessons: [...action.lesson]
     })
   }
+  return state;
 }
