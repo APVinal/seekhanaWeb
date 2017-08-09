@@ -18,21 +18,20 @@ class Lessons extends Component {
   checkTitle(arr, obj) {
     if (!arr[0]){
       return false;
-    }else{
+    } else {
       for(let i = 0; i < arr.length; i++){
         if(arr[i].title === obj.title){
           return true;
         }
       }
     }
-
     return false;
   }
 
   addQuiz(accessToken, lesson, userId) {
-      if(this.checkTitle(this.props.userLessons, lesson)){
+      if (this.checkTitle(this.props.userLessons, lesson)){
         this.props.dispatch(addLesson(lesson._id));
-      }else{
+      } else {
         this.props.dispatch(updateUserLessons(accessToken, userId, lesson));
       }
      
@@ -41,7 +40,7 @@ class Lessons extends Component {
 
   render(){
     console.log('user lessons', this.props.userLessons);
-    if(!this.props.lessons){
+    if (!this.props.lessons){
       return <p>Error loading lessons</p>;
     }
     const lessons = this.props.lessons.map((lesson, index) => (

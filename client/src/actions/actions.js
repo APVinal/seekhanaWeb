@@ -47,14 +47,27 @@ export const addLesson = lesson => ({
 });
 
 export const CHECK_ANSWER = 'CHECK_ANSWER';
-export const checkAnswer = answer => ({
+export const checkAnswer = (multiAnswer, pronunAnswer) => ({
   type: CHECK_ANSWER,
-  answer
+  multiAnswer,
+  pronunAnswer
 });
 
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const nextQuestion = () => ({
   type: NEXT_QUESTION
+});
+
+export const UPDATE_ANSWER = 'UPDATE_ANSWER';
+export const updateAnswer = answer => ({
+  type: UPDATE_ANSWER,
+  answer
+});
+
+export const INPUT_ANSWER = 'INPUT_ANSWER';
+export const inputAnswer = answer => ({
+  type: INPUT_ANSWER,
+  answer
 });
 
 export const fetchUser = accessToken => dispatch => {

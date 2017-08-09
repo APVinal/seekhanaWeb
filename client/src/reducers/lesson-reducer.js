@@ -8,7 +8,9 @@ SET_ACCESS_TOKEN,
 REMOVE_ACCESS_TOKEN,
 ADD_LESSON,
 CHECK_ANSWER,
-NEXT_QUESTION
+NEXT_QUESTION,
+UPDATE_ANSWER,
+INPUT_ANSWER
 } from '../actions/actions';
 
 const initialState = {
@@ -19,8 +21,11 @@ const initialState = {
   error: null,
   lessons: [],
   currentLesson: null,
-  selectedAnswer: null,
-  showResults: false
+  selectedAnswer: false,
+  inputAnswer: null,
+  showResults: false,
+  multiAnswer: null,
+  pronunciationAnswer: null
 };
 
 export default (state=initialState, action) => {
@@ -67,13 +72,22 @@ export default (state=initialState, action) => {
     });
   } else if (action.type === CHECK_ANSWER) {
     return Object.assign({}, state, {
-      selectedAnswer: action.answer,
-      showResults: true
+      showResults: true,
+      multiAnswer: action.multiAnswer,
+      pronunciationAnswer: action.pronunAnswer
     });
   } else if (action.type === NEXT_QUESTION) {
     return Object.assign({}, state, {
       showResults: false
     });
+  } else if (action.type === UPDATE_ANSWER) {
+    return Object.assign({}, state, {
+      selectedAnswer: action.answer
+    });
+  } else if (action.type === INPUT_ANSWER) {
+    return Object.assign({}, state, {
+      inputAnswer: action.answer
+    })
   }
   return state;
 }
