@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
-import { fetchUser, fetchLessons, addLesson, updateUserLessons } from '../actions/actions'
+import { fetchUser, fetchLessons, addLesson, updateUserLessons } from '../actions/actions';
+import {Link} from 'react-router-dom';
 
 class Lessons extends Component {
 
@@ -45,7 +46,7 @@ class Lessons extends Component {
     }
     const lessons = this.props.lessons.map((lesson, index) => (
       <li key={index}>
-        <a href={`/lesson/${lesson._id}`}><button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button></a>
+        <Link to={`/lesson/${lesson._id}`}><button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button></Link>
       </li>
     ));
 

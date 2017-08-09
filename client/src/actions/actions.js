@@ -46,7 +46,16 @@ export const addLesson = lesson => ({
   lesson
 });
 
+export const CHECK_ANSWER = 'CHECK_ANSWER';
+export const checkAnswer = answer => ({
+  type: CHECK_ANSWER,
+  answer
+});
 
+export const NEXT_QUESTION = 'NEXT_QUESTION';
+export const nextQuestion = () => ({
+  type: NEXT_QUESTION
+});
 
 export const fetchUser = accessToken => dispatch => {
   dispatch(fetchRequest());

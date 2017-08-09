@@ -9,7 +9,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
 const {User, Lesson} = require('./models');
-const LinkedList = require('./linkedList');
 
 const jsonParser = bodyParser.json();
 

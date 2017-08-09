@@ -51,6 +51,10 @@ class LinkedList{
     }
     return node;
   }
+
+  _getValue(index){
+    return this._find(index).value;
+  }
 }
 
 module.exports = LinkedList;

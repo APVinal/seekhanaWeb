@@ -6,7 +6,9 @@ ADD_LESSON_SUCCESS,
 FETCH_ERROR,
 SET_ACCESS_TOKEN,
 REMOVE_ACCESS_TOKEN,
-ADD_LESSON
+ADD_LESSON,
+CHECK_ANSWER,
+NEXT_QUESTION
 } from '../actions/actions';
 
 const initialState = {
@@ -16,7 +18,9 @@ const initialState = {
   accessToken: null,
   error: null,
   lessons: [],
-  currentLesson: null
+  currentLesson: null,
+  selectedAnswer: null,
+  showResults: false
 };
 
 export default (state=initialState, action) => {
@@ -60,7 +64,16 @@ export default (state=initialState, action) => {
       error: null,
       userLessons: [...action.lesson],
       currentLesson: action.lesson._id
-    })
+    });
+  } else if (action.type === CHECK_ANSWER) {
+    return Object.assign({}, state, {
+      selectedAnswer: action.answer,
+      showResults: true
+    });
+  } else if (action.type === NEXT_QUESTION) {
+    return Object.assign({}, state, {
+      showResults: false
+    });
   }
   return state;
 }
