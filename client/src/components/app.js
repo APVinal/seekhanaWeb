@@ -11,8 +11,11 @@ export default class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path='/' component={Login}/>
-          <Route exact path='/lessons' component={Lessons}/>
+           <header><div className="logo"><span className="logoText hindi">सीखना</span><span className="logoText latin">seekhana</span></div></header> 
+          <div className="parent container">
+            <Route exact path='/' component={Login}/>
+            <Route exact path='/lessons' component={Lessons}/>
+          </div>
         </div>
       </Router>
     );

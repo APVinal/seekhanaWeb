@@ -7,13 +7,19 @@
   display:flex;
 }
 
+body{
+  background-color:#C45AB3;
+}
+
 header{
   width:100%;
-  background-color:red;
+  background-color:#70146a;
   display:flex;
-  padding:15px;
+  padding:10px;
+  padding-left:50px;
+  padding-right:50px;
   font-weight:600;
-  color:white;
+  color:#fc5e21;
 }
 
 .logo{
@@ -23,11 +29,50 @@ header{
 
 .latin{
   margin-top:-5px;
-  text-align: right;
+  text-align: center;
   font-weight:400;
 }
 
 .hindi{
   font-size:40px;
   margin-bottom:3px;
+}
+
+.parent{
+  max-width:500px;
+  margin:auto;
+  margin-top:30px;
+  height:600px;
+}
+
+.namaste{
+  margin:auto;
+  font-weight:600;
+  font-size:80px;
+  min-width:7px;
+}
+
+.helloText{
+  padding-right:5px;
+}
+
+@keyframes cursor-blink{
+  0%{opacity:1;}
+  50%{opacity:0;}
+  100%{opacity:1;}
+}
+
+.cursor{
+  background-color:white;
+  width:5px;
+  height:80px;
+  animation-name:cursor-blink;
+  animation-duration:1.5s;
+  animation-iteration-count:infinite;
+}
+
+.mandala{
+  width:300px;
+  height:300px;
+  fill:#fc5e21;
 }
