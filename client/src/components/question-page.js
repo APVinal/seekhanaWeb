@@ -8,7 +8,6 @@ class QuestionPage extends Component {
   }
 
   render() {
-    cons
       return (
         <div>
           <p>this is where the quiz goes</p>

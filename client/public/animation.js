@@ -1,3 +1,5 @@
+'use strict';
+
 const pron=['N','a','m','a','s','t','e'];
 const eng=['H','e','l','l','o'];
 const hind=['न','म','स्ते'];
