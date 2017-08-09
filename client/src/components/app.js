@@ -16,6 +16,7 @@ export default class App extends Component {
             <Route exact path='/lessons' component={Lessons}/>
             <Route exact path='/lesson/:lessonId' component={QuestionPage}/>
           </div>
+          <footer className="container">designed and developed by william martin and paton vinal | 2017 | we don't reserve any rights, so steal if you want to, i guess.</footer>
         </div>
       </Router>
     );
