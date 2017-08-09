@@ -44,7 +44,7 @@ class Lessons extends Component {
     }
     const lessons = this.props.lessons.map((lesson, index) => (
       <li key={index}>
-        <button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button>
+        <a href={`/lesson/${lesson._id}`}><button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button></a>
       </li>
     ));
 

@@ -12,7 +12,7 @@ export default class App extends Component {
         <div>
           <Route exact path='/' component={Login}/>
           <Route exact path='/lessons' component={Lessons}/>
-          <Route exact path='/lesson/:lessonId' compononent={QuestionPage}/>
+          <Route exact path='/lesson/:lessonId' component={QuestionPage}/>
         </div>
       </Router>
     );

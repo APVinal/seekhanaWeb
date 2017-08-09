@@ -1,43 +1,25 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 class QuestionPage extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         questions: []
-    //     };
-    // }
 
-    // componentDidMount() {
-    //     const accessToken = Cookies.get('accessToken');
-    //     fetch('/api/questions', {
-    //             headers: {
-    //                 'Authorization': `Bearer ${accessToken}`
-    //             }
-    //         }).then(res => {
-    //         if (!res.ok) {
-    //             throw new Error(res.statusText);
-    //         }
-    //         return res.json();
-    //     }).then(questions =>
-    //         this.setState({
-    //             questions
-    //         })
-    //     );
-    // }
+  componentWillMount(){
+    //dispatch(makeLL())
+  }
 
-    render() {
-        // const questions = this.state.questions.map((question, index) =>
-        //     <li key={index}>{question}</li>
-        // );
-
-        return (
-            <ul className="question-list">
-                Lesson will go here
-            </ul>
+  render() {
+    cons
+      return (
+        <div>
+          <p>this is where the quiz goes</p>
+        </div>
         );
     }
 }
 
+const mapStateToProps = state => ({
+  lessonId: state.currentLesson,
+  lesson: state.userLessons
+})
 
-export default QuestionPage;
+export default connect(mapStateToProps)(QuestionPage);

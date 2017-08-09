@@ -56,9 +56,10 @@ export default (state=initialState, action) => {
     });
   } else if (action.type === ADD_LESSON_SUCCESS) {
     return Object.assign({}, state, {
-      laoding: false,
+      loading: false,
       error: null,
-      userLessons: [...action.lesson]
+      userLessons: [...action.lesson],
+      currentLesson: action.lesson._id
     })
   }
   return state;
