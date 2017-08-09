@@ -70,8 +70,8 @@ app.get('/api/auth/google',
 
 app.get('/api/auth/google/callback',
     passport.authenticate('google', {
-        failureRedirect: '/',
-        session: false
+      failureRedirect: '/',
+      session: false
     }),
     (req, res) => {
         let user;
@@ -81,17 +81,21 @@ app.get('/api/auth/google/callback',
                 if(err !== null){
                     throw new Error(err);
                 }
-                res.cookie('accessToken', req.user.accessToken, {expires: 0}).redirect('/');
+                res.cookie('accessToken', req.user.accessToken, {expires: 0}).redirect('/lessons');
             });
+      // res.cookie('accessToken', req.user.accessToken, {expires: 0});
+      // res.redirect('/lessons');        
     }
 );
 
 app.get('/api/users/:accessToken', 
-    passport.authenticate('bearer', {session: false}),
+    // passport.authenticate('bearer', {session: false}),
     (req,res) =>{
+      console.log('we made it this far');
         User
             .find({accessToken: req.params.accessToken})
             .then(user => {
+              console.log('this is our user', user);
                 res.json(user);
             });
 });
@@ -104,9 +108,11 @@ app.get('/api/auth/logout', (req, res) => {
 
 app.get('/api/me',
     passport.authenticate('bearer', {session: false}),
-    (req, res) => res.json({
+    (req, res) => {
+      res.json({
         googleId: req.user.googleId
-    })
+      });
+    }
 );
 
 app.get('/api/questions',
