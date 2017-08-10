@@ -44,22 +44,32 @@ class Lessons extends Component {
     }
     const lessons = this.props.lessons.map((lesson, index) => (
       <li key={index}>
-        <Link to={`/lesson/${lesson._id}`}><button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button></Link>
+        <Link to={`/lesson/${lesson._id}`}><button className="lesson" onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}<span className="goArrow">></span></button></Link>
       </li>
     ));
 
     return (
-      <section>
-      <div>
-        <a href={'/api/auth/logout'}><button>Log Out</button></a>
-      </div>
-      <div>
-        <p> Beginner lessons </p>
-        <ul>
-          {lessons}
-        </ul>
-      </div>
-      </section>
+      <main>
+        {/* <div>
+          <a href={'/api/auth/logout'}><button>Log Out</button></a>
+        </div> */}
+        <div className="lessons container">
+          <div className="lessons-1 container column">
+            <div className="lessHeader"><h2> Beginner </h2></div>
+            <ul>
+              {lessons}
+            </ul>
+          </div>
+          <div className="lessons-2 container column">
+            <div className="lessHeader"><h2> Intermediate </h2></div>
+            <div className="comingSoon"><h3>Coming Soon</h3></div>
+          </div>
+          <div className="lessons-3 container column">
+            <div className="lessHeader"><h2> Advanced </h2></div>
+            <div className="comingSoon"><h3>Coming Soon</h3></div>
+          </div>
+        </div>
+      </main>
     );
   }
 }

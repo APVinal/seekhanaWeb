@@ -11,6 +11,7 @@ export default class App extends Component {
       <Router>
         <div>
            <header><div className="headerContent"><div className="logo"><span className="logoText hindi">सीखना</span><span className="logoText latin">seekhana</span></div></div></header> 
+          <div className="bg"><img className="bg-pattern" src="./images/bg-pattern.svg"/></div>
           <div className="parent container">
             <Route exact path='/' component={Login}/>
             <Route exact path='/lessons' component={Lessons}/>
