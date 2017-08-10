@@ -11,10 +11,8 @@ class QuestionPage extends Component {
     const lessonArray = this.findLesson(this.props.lesson, this.props.lessonId).questions;
     const randomizedLesson = this.randomizeArray(lessonArray);
     const selectedLesson = randomizedLesson.slice(0, 10);
-    console.log('presliced', randomizedLesson);
-    console.log('this is the lesson',selectedLesson);
 
-   selectedLesson.forEach(question => {
+    selectedLesson.forEach(question => {
       newLesson.insert(i++, question);
     });
 
@@ -47,15 +45,15 @@ class QuestionPage extends Component {
     return linkedList.length;
   }
 
-  updateSelectedAnswer(answer) {
-    let selectedAnswer = false;
+  // updateSelectedAnswer(answer) {
+  //   let selectedAnswer = false;
 
-    if (answer.correct){
-      selectedAnswer = true;
-    }
+  //   if (answer.correct){
+  //     selectedAnswer = true;
+  //   }
 
-    this.props.dispatch(updateAnswer(selectedAnswer));
-  }
+  //   this.props.dispatch(updateAnswer(selectedAnswer));
+  // }
 
   checkAnswers(e, node){
     e.preventDefault();
@@ -105,8 +103,21 @@ class QuestionPage extends Component {
   }
 
   render() {
-    console.log(this.lesson);
     const node = this.lesson.head.value;
+    let count = this.props.questionCount;
+    let cap = this.props.currentCap;
+    let max = this.props.cappedLength;
+
+    let finalResults;
+
+    if (count === cap || count === max){
+      console.log('hit the end of the quiz');
+      finalResults = (
+        <div>
+          These are the final results
+        </div>
+      )
+    }
   
     let resultsRender;
 
@@ -134,11 +145,16 @@ class QuestionPage extends Component {
       return (
         <div>
           <h1>{node.text}</h1>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[0])}>{node.choices[0].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[1])}>{node.choices[1].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[2])}>{node.choices[2].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[3])}>{node.choices[3].text}</button>
           <form>
+            <label>{node.choices[0].text} </label>
+            <input type='radio' name='questions' value={node.choices[0].correct} />
+            <label>{node.choices[1].text} </label>
+            <input type='radio' name='questions' value={node.choices[1].correct} />
+            <label>{node.choices[2].text} </label>
+            <input type='radio' name='questions' value={node.choices[2].correct} />
+            <label>{node.choices[3].text} </label>
+            <input type='radio' name='questions' value={node.choices[3].correct} />
+
             <label>Answer</label>
             <input type='text' onChange={e=> this.updateInput(e.target.value)} />
             <button onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
@@ -150,11 +166,15 @@ class QuestionPage extends Component {
       return (
         <div>
           <h1>{node.text}</h1>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[0])}>{node.choices[0].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[1])}>{node.choices[1].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[2])}>{node.choices[2].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[3])}>{node.choices[3].text}</button>
           <form>
+            <label>{node.choices[0].text} </label>
+            <input type='radio' name='questions' value={node.choices[0].text} />
+            <label>{node.choices[1].text} </label>
+            <input type='radio' name='questions' value={node.choices[1].text} />
+            <label>{node.choices[2].text} </label>
+            <input type='radio' name='questions' value={node.choices[2].text} />
+            <label>{node.choices[3].text} </label>
+            <input type='radio' name='questions' value={node.choices[3].text} />
             <button onClick={() => this.checkAnswers(node)}>Submit</button>
           </form>
             {resultsRender}
@@ -164,9 +184,7 @@ class QuestionPage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log(state);
-return {
+const mapStateToProps = state => ({
   lessonId: state.currentLesson,
   lesson: state.userLessons,
   results: state.showResults,
@@ -175,8 +193,8 @@ return {
   pronunciationAnswer: state.pronunciationAnswer,
   inputAnswer: state.inputAnswer,
   currentCap: state.currentCap,
-  questionCount: state.questionCount
-}
-}
+  questionCount: state.questionCount,
+  max: state.cappedLength
+});
 
 export default connect(mapStateToProps)(QuestionPage);
