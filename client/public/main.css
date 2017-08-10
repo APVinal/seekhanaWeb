@@ -258,3 +258,19 @@ button.login:hover{
   color:white;
   border-radius:1em;
 }
+
+.card{
+  margin: auto;
+  padding: 40px;
+  background-color: white;
+  margin-top: 5%;
+  border-radius: .5em;
+  height: 50vh;
+}
+
+.card > h1{
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 2vw;
+  font-family: 'Varela Round', sans-serif;
+}

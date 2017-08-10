@@ -105,7 +105,7 @@ class QuestionPage extends Component {
 
     if (this.props.results && node.pronunciation){
       resultsRender = (
-        <section>
+        <section className="results">
           <div>These are the results</div>
           <div>You are {this.props.multiAnswer}, the answer is Y</div>
           <div>You are {this.props.pronunciationAnswer}, the pronunciation is {node.pronunciation}</div>
@@ -114,7 +114,7 @@ class QuestionPage extends Component {
       );
     } else if (this.props.results){
       resultsRender = (
-        <section>
+        <section className= "results">
           <h1>{node.text}</h1>
           <div>These are the results</div>
           <div>You are {this.props.multiAnswer}, the answer is Y</div>
@@ -125,33 +125,37 @@ class QuestionPage extends Component {
 
     if (node.pronunciation) {
       return (
-        <div>
-          <h1>{node.text}</h1>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[0])}>{node.choices[0].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[1])}>{node.choices[1].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[2])}>{node.choices[2].text}</button>
-            <button onClick={()=> this.updateSelectedAnswer(node.choices[3])}>{node.choices[3].text}</button>
-          <form>
-            <label>Answer</label>
-            <input type='text' onChange={e=> this.updateInput(e.target.value)} />
-            <button onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
-          </form>
-          {resultsRender}
-        </div>
+        <main className="container">
+          <div className="card card-primary">
+            <h1>{node.text}</h1>
+              <button onClick={()=> this.updateSelectedAnswer(node.choices[0])}>{node.choices[0].text}</button>
+              <button onClick={()=> this.updateSelectedAnswer(node.choices[1])}>{node.choices[1].text}</button>
+              <button onClick={()=> this.updateSelectedAnswer(node.choices[2])}>{node.choices[2].text}</button>
+              <button onClick={()=> this.updateSelectedAnswer(node.choices[3])}>{node.choices[3].text}</button>
+            <form>
+              <label>Answer</label>
+              <input type='text' onChange={e=> this.updateInput(e.target.value)} />
+              <button onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
+            </form>
+            {resultsRender}
+          </div>
+        </main>
         );      
     } else {
       return (
-        <div>
-          <h1>{node.text}</h1>
+        <main className="container">
+          <div className="card card-primary">
+            <h1>{node.text}</h1>
             <button onClick={()=> this.updateSelectedAnswer(node.choices[0])}>{node.choices[0].text}</button>
             <button onClick={()=> this.updateSelectedAnswer(node.choices[1])}>{node.choices[1].text}</button>
             <button onClick={()=> this.updateSelectedAnswer(node.choices[2])}>{node.choices[2].text}</button>
             <button onClick={()=> this.updateSelectedAnswer(node.choices[3])}>{node.choices[3].text}</button>
-          <form>
-            <button onClick={() => this.checkAnswers(node)}>Submit</button>
-          </form>
+            <form>
+              <button onClick={() => this.checkAnswers(node)}>Submit</button>
+            </form>
             {resultsRender}
-        </div>
+          </div>
+        </main>
       );
     }
   }
