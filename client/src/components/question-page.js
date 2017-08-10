@@ -10,11 +10,27 @@ class QuestionPage extends Component {
   
     let i = 0;
 
+    //add a randomizer to array
+
     this.findLesson(this.props.lesson, this.props.lessonId).questions.forEach(question => {
       newLesson.insert(i++, question);
     });
 
     this.lesson = newLesson;
+  }
+
+  swap(arr, i, j){
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  
+  randomizeArray(arr) {
+    for( let i = arr.length -1; i>=0; i--){
+      let random = Math.floor(Math.random()*i);
+      this.swap(arr, i, random);
+    }
+    return arr;
   }
 
   findLesson(arr, id) {
@@ -42,23 +58,39 @@ class QuestionPage extends Component {
   checkAnswers(obj, answer){
     let multiAnswer = 'Incorrect';
     let pronunAnswer = 'Incorrect';
+    let multiplier = obj.multiplier;
+    let moveFactor = this.checkLength(this.lesson) - Math.floor((Math.random()* 5) + 1);
 
-    if (this.props.inputAnswer === obj.pronunciation){
-      pronunAnswer = 'Correct';
-    }
-
-    if (this.props.selectedAnswer) {
+    if (this.props.inputAnswer === obj.pronunciation && this.props.selectedAnswer){
       multiAnswer = 'Correct';
+      pronunAnswer = 'Correct';
+      multiplier = Math.min((multiplier * 1.7), 1);
+      moveFactor = Math.ceil(moveFactor * multiplier);
+    } else if (this.props.inputAnswer === obj.pronunciation){
+      pronunAnswer = 'Correct';
+      multiplier /= 1.7;
+      moveFactor = Math.ceil(moveFactor * multiplier);
+    } else if (this.props.selectedAnswer) {
+      multiAnswer = 'Correct';
+      multiplier /= 1.7;
+      moveFactor = Math.ceil(moveFactor * multiplier);
+    } else {
+      multiplier /= 1.7;
+      moveFactor = Math.ceil(moveFactor * multiplier);
     }
+    
+    obj.multiplier = multiplier;
 
-    this.lesson.insert(this.checkLength(this.lesson), obj);
+    console.log('moveFactor', moveFactor);
     this.lesson.delete(0);
+    this.lesson.insert(moveFactor, obj);
     this.props.dispatch(checkAnswer(multiAnswer, pronunAnswer));
 
   }
 
   nextQuestion(){
     this.props.dispatch(nextQuestion());
+    //reset state's input
   }
 
   updateInput(e){
@@ -69,16 +101,26 @@ class QuestionPage extends Component {
     console.log(this.lesson);
     const node = this.lesson.head.value;
 
-    if(this.props.results){
+    if (this.props.results && node.pronunciation){
       return (
         <section>
-        <div>These are the results</div>
-        <div>You are {this.props.multiAnswer}, the answer is Y</div>
-        <div>You are {this.props.pronunciationAnswer}, the pronunciation is {node.pronunciation}</div>
-        <button onClick={() => this.nextQuestion()}>Next</button>
+          <h1>{node.text}</h1>
+          <div>These are the results</div>
+          <div>You are {this.props.multiAnswer}, the answer is Y</div>
+          <div>You are {this.props.pronunciationAnswer}, the pronunciation is {node.pronunciation}</div>
+          <button onClick={() => this.nextQuestion()}>Next</button>
         </section>
-      )
-    } else {
+      );
+    } else if (this.props.results){
+      return (
+        <section>
+          <h1>{node.text}</h1>
+          <div>These are the results</div>
+          <div>You are {this.props.multiAnswer}, the answer is Y</div>
+          <button onClick={() => this.nextQuestion()}>Next</button>
+        </section>
+      );
+    } else if (node.pronunciation) {
       return (
         <div>
           <h1>{node.text}</h1>
@@ -93,12 +135,23 @@ class QuestionPage extends Component {
           </form>
         </div>
         );      
+    } else {
+      return (
+        <div>
+          <h1>{node.text}</h1>
+            <button onClick={()=> this.updateSelectedAnswer(node.choices[0])}>{node.choices[0].text}</button>
+            <button onClick={()=> this.updateSelectedAnswer(node.choices[1])}>{node.choices[1].text}</button>
+            <button onClick={()=> this.updateSelectedAnswer(node.choices[2])}>{node.choices[2].text}</button>
+            <button onClick={()=> this.updateSelectedAnswer(node.choices[3])}>{node.choices[3].text}</button>
+            <button onClick={() => this.checkAnswers(node)}>Submit</button>
+        </div>
+      );
     }
   }
 }
 
 const mapStateToProps = state => {
-  console.log('this is our state',state);
+  // console.log('this is our state',state);
   return {
   lessonId: state.currentLesson,
   lesson: state.userLessons,
