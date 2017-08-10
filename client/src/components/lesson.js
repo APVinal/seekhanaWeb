@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 class Lessons extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     const accessToken = Cookies.get('accessToken');
     
     if (accessToken) {
