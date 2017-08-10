@@ -35,6 +35,8 @@ function changeText(word){
 }
 
 function animateHello(text, i=0){
+  changeText(text[i]);
+  i++;
   setInterval(() => {
     if(!text[i]){
       i = 0;
