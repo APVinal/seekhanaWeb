@@ -7,12 +7,14 @@ class QuestionPage extends Component {
 
   componentWillMount(){
     let newLesson = new LinkedList();
-  
     let i = 0;
+    const lessonArray = this.findLesson(this.props.lesson, this.props.lessonId).questions;
+    const randomizedLesson = this.randomizeArray(lessonArray);
+    const selectedLesson = randomizedLesson.slice(0, 10);
+    console.log('presliced', randomizedLesson);
+    console.log('this is the lesson',selectedLesson);
 
-    //add a randomizer to array
-    console.log('hit here')
-    this.findLesson(this.props.lesson, this.props.lessonId).questions.forEach(question => {
+   selectedLesson.forEach(question => {
       newLesson.insert(i++, question);
     });
 
@@ -61,6 +63,8 @@ class QuestionPage extends Component {
     let pronunAnswer = 'Incorrect';
     let multiplier = node.multiplier;
     let moveFactor = this.checkLength(this.lesson) - Math.floor((Math.random()* 5) + 1);
+    let currentCap = this.props.currentCap; 
+    let questionCount = this.props.questionCount;
 
     if (this.props.inputAnswer === node.pronunciation && this.props.selectedAnswer){
       multiAnswer = 'Correct';
@@ -71,26 +75,29 @@ class QuestionPage extends Component {
       pronunAnswer = 'Correct';
       multiplier /= 1.7;
       moveFactor = Math.ceil(moveFactor * multiplier);
+      currentCap += 1;
     } else if (this.props.selectedAnswer) {
       multiAnswer = 'Correct';
       multiplier /= 1.7;
       moveFactor = Math.ceil(moveFactor * multiplier);
+      currentCap += 1;
     } else {
       multiplier /= 1.7;
       moveFactor = Math.ceil(moveFactor * multiplier);
+      currentCap += 1;
     }
     
+    questionCount += 1;
     node.multiplier = multiplier;
 
     console.log('moveFactor', moveFactor);
     this.lesson.insert(moveFactor, node);
-    this.props.dispatch(checkAnswer(multiAnswer, pronunAnswer));
+    this.props.dispatch(checkAnswer(multiAnswer, pronunAnswer, currentCap, questionCount));
   }
 
   nextQuestion(){
     this.lesson.delete(0);
     this.props.dispatch(nextQuestion());
-    //reset state's input
   }
 
   updateInput(e){
@@ -100,7 +107,7 @@ class QuestionPage extends Component {
   render() {
     console.log(this.lesson);
     const node = this.lesson.head.value;
-
+  
     let resultsRender;
 
     if (this.props.results && node.pronunciation){
@@ -158,15 +165,17 @@ class QuestionPage extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log('this is our state',state);
-  return {
+  console.log(state);
+return {
   lessonId: state.currentLesson,
   lesson: state.userLessons,
   results: state.showResults,
   selectedAnswer: state.selectedAnswer,
   multiAnswer: state.multiAnswer,
   pronunciationAnswer: state.pronunciationAnswer,
-  inputAnswer: state.inputAnswer
+  inputAnswer: state.inputAnswer,
+  currentCap: state.currentCap,
+  questionCount: state.questionCount
 }
 }
 

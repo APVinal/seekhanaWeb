@@ -25,7 +25,10 @@ const initialState = {
   inputAnswer: null,
   showResults: false,
   multiAnswer: null,
-  pronunciationAnswer: null
+  pronunciationAnswer: null,
+  cappedLength: 50,
+  currentCap: 25,
+  questionCount: 0
 };
 
 export default (state=initialState, action) => {
@@ -74,11 +77,15 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       showResults: true,
       multiAnswer: action.multiAnswer,
-      pronunciationAnswer: action.pronunAnswer
+      pronunciationAnswer: action.pronunAnswer,
+      currentCap: action.currentCap,
+      questionCount: action.questionCount
     });
   } else if (action.type === NEXT_QUESTION) {
     return Object.assign({}, state, {
-      showResults: false
+      showResults: false,
+      inputAnswer: null,
+      selectedAnswer: false
     });
   } else if (action.type === UPDATE_ANSWER) {
     console.log(action);

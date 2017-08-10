@@ -47,10 +47,12 @@ export const addLesson = lesson => ({
 });
 
 export const CHECK_ANSWER = 'CHECK_ANSWER';
-export const checkAnswer = (multiAnswer, pronunAnswer) => ({
+export const checkAnswer = (multiAnswer, pronunAnswer, currentCap, questionCount) => ({
   type: CHECK_ANSWER,
   multiAnswer,
-  pronunAnswer
+  pronunAnswer,
+  currentCap,
+  questionCount
 });
 
 export const NEXT_QUESTION = 'NEXT_QUESTION';
