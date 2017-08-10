@@ -30,6 +30,8 @@ header{
   margin:auto;
   padding-left:90px;
   padding-right:90px;
+  display:flex;
+  justify-content:space-between;
 }
 
 main{
@@ -170,6 +172,25 @@ button.login:hover{
   cursor: pointer;
 }
 
+button.headerLogin{
+  width:100px;
+  height:50px;
+  margin-top:auto;
+  margin-bottom:auto;
+  transition: .3s ease-in-out;
+}
+
+button.headerLogin:hover{
+  transition: .3s ease-in-out;
+  background-color:#70146a;
+  color:#fc5e21;
+}
+
+div.login{
+  margin-top:auto;
+  margin-bottom:auto;
+}
+
 .google{
   margin-top:5px;
   color:white;
@@ -272,5 +293,4 @@ button.login:hover{
   margin-bottom: 30px;
   text-align: center;
   font-size: 2vw;
-  font-family: 'Varela Round', sans-serif;
 }
