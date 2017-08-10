@@ -11,7 +11,7 @@ class QuestionPage extends Component {
     let i = 0;
 
     //add a randomizer to array
-
+    console.log('hit here')
     this.findLesson(this.props.lesson, this.props.lessonId).questions.forEach(question => {
       newLesson.insert(i++, question);
     });
@@ -55,18 +55,19 @@ class QuestionPage extends Component {
     this.props.dispatch(updateAnswer(selectedAnswer));
   }
 
-  checkAnswers(obj, answer){
+  checkAnswers(e, node){
+    e.preventDefault();
     let multiAnswer = 'Incorrect';
     let pronunAnswer = 'Incorrect';
-    let multiplier = obj.multiplier;
+    let multiplier = node.multiplier;
     let moveFactor = this.checkLength(this.lesson) - Math.floor((Math.random()* 5) + 1);
 
-    if (this.props.inputAnswer === obj.pronunciation && this.props.selectedAnswer){
+    if (this.props.inputAnswer === node.pronunciation && this.props.selectedAnswer){
       multiAnswer = 'Correct';
       pronunAnswer = 'Correct';
       multiplier = Math.min((multiplier * 1.7), 1);
       moveFactor = Math.ceil(moveFactor * multiplier);
-    } else if (this.props.inputAnswer === obj.pronunciation){
+    } else if (this.props.inputAnswer === node.pronunciation){
       pronunAnswer = 'Correct';
       multiplier /= 1.7;
       moveFactor = Math.ceil(moveFactor * multiplier);
@@ -79,16 +80,15 @@ class QuestionPage extends Component {
       moveFactor = Math.ceil(moveFactor * multiplier);
     }
     
-    obj.multiplier = multiplier;
+    node.multiplier = multiplier;
 
     console.log('moveFactor', moveFactor);
-    this.lesson.delete(0);
-    this.lesson.insert(moveFactor, obj);
+    this.lesson.insert(moveFactor, node);
     this.props.dispatch(checkAnswer(multiAnswer, pronunAnswer));
-
   }
 
   nextQuestion(){
+    this.lesson.delete(0);
     this.props.dispatch(nextQuestion());
     //reset state's input
   }
@@ -101,10 +101,11 @@ class QuestionPage extends Component {
     console.log(this.lesson);
     const node = this.lesson.head.value;
 
+    let resultsRender;
+
     if (this.props.results && node.pronunciation){
-      return (
+      resultsRender = (
         <section>
-          <h1>{node.text}</h1>
           <div>These are the results</div>
           <div>You are {this.props.multiAnswer}, the answer is Y</div>
           <div>You are {this.props.pronunciationAnswer}, the pronunciation is {node.pronunciation}</div>
@@ -112,7 +113,7 @@ class QuestionPage extends Component {
         </section>
       );
     } else if (this.props.results){
-      return (
+      resultsRender = (
         <section>
           <h1>{node.text}</h1>
           <div>These are the results</div>
@@ -120,7 +121,9 @@ class QuestionPage extends Component {
           <button onClick={() => this.nextQuestion()}>Next</button>
         </section>
       );
-    } else if (node.pronunciation) {
+    }
+
+    if (node.pronunciation) {
       return (
         <div>
           <h1>{node.text}</h1>
@@ -131,8 +134,9 @@ class QuestionPage extends Component {
           <form>
             <label>Answer</label>
             <input type='text' onChange={e=> this.updateInput(e.target.value)} />
-            <button onClick={() => this.checkAnswers(node)}>Submit</button>
+            <button onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
           </form>
+          {resultsRender}
         </div>
         );      
     } else {
@@ -143,7 +147,10 @@ class QuestionPage extends Component {
             <button onClick={()=> this.updateSelectedAnswer(node.choices[1])}>{node.choices[1].text}</button>
             <button onClick={()=> this.updateSelectedAnswer(node.choices[2])}>{node.choices[2].text}</button>
             <button onClick={()=> this.updateSelectedAnswer(node.choices[3])}>{node.choices[3].text}</button>
+          <form>
             <button onClick={() => this.checkAnswers(node)}>Submit</button>
+          </form>
+            {resultsRender}
         </div>
       );
     }
