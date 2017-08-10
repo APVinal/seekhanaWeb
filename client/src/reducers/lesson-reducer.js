@@ -67,7 +67,7 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       loading: false,
       error: null,
-      userLessons: [...action.lesson],
+      userLessons: action.lesson,
       currentLesson: action.lesson._id
     });
   } else if (action.type === CHECK_ANSWER) {
