@@ -81,6 +81,7 @@ export default (state=initialState, action) => {
       showResults: false
     });
   } else if (action.type === UPDATE_ANSWER) {
+    console.log(action);
     return Object.assign({}, state, {
       selectedAnswer: action.answer
     });
@@ -89,5 +90,6 @@ export default (state=initialState, action) => {
       inputAnswer: action.answer
     })
   }
+  console.log('reducer state', state);
   return state;
 }

@@ -39,7 +39,6 @@ class Lessons extends Component {
   
 
   render(){
-    console.log('user lessons', this.props.userLessons);
     if (!this.props.lessons){
       return <p>Error loading lessons</p>;
     }

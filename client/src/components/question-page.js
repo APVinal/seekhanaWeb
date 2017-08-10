@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import LinkedList from '../linkedList';
-import { checkAnswer, nextQuestion, updateAnswer, inputAnswer } from '../actions/actions'; 
+import { checkAnswer, updateAnswer, nextQuestion, inputAnswer } from '../actions/actions';
 
 class QuestionPage extends Component {
 
@@ -44,11 +44,11 @@ class QuestionPage extends Component {
     let pronunAnswer = 'Incorrect';
 
     if (this.props.inputAnswer === obj.pronunciation){
-      pronunAnswer = 'Correct!';
+      pronunAnswer = 'Correct';
     }
 
     if (this.props.selectedAnswer) {
-      multiAnswer = 'Correct!';
+      multiAnswer = 'Correct';
     }
 
     this.lesson.insert(this.checkLength(this.lesson), obj);
