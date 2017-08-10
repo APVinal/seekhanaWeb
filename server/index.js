@@ -149,7 +149,7 @@ app.post('/api/lessons',
                 title: req.body.title,
                 questions: req.body.questions
             })
-            .then(res=> console.log(res))
+            .then(_res=> res.json(_res))
             .catch(err=> console.log(err));
     }
 );
