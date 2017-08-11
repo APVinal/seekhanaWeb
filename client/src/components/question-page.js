@@ -9,7 +9,9 @@ class QuestionPage extends Component {
     this.state = {
       input: null,
       multi: null,
-      lesson: {}
+      lesson: {},
+      correct: null,
+      total: null
     }
   }
   componentWillMount(){
@@ -81,7 +83,6 @@ class QuestionPage extends Component {
 
   checkAnswers(e, node){
     e.preventDefault();
-    console.log(e);
     if (this.state.input && this.state.multi) {
       let multiAnswer = 'Incorrect';
       let pronunAnswer = 'Incorrect';
@@ -95,20 +96,52 @@ class QuestionPage extends Component {
         pronunAnswer = 'Correct';
         multiplier = Math.min((multiplier * 1.7), 1);
         moveFactor = Math.ceil(moveFactor * multiplier);
+        this.setState({
+          correct: 2,
+          total: 2
+        })
       } else if (this.state.input === node.pronunciation){
         pronunAnswer = 'Correct';
         multiplier /= 1.7;
         moveFactor = Math.ceil(moveFactor * multiplier);
         currentCap += 1;
-      } else if (this.state.multi === 'true') {
+        this.setState({
+          correct: 1,
+          total: 2
+        })
+      } else if (this.state.multi === 'true' && node.pronunciation) {
         multiAnswer = 'Correct';
         multiplier /= 1.7;
         moveFactor = Math.ceil(moveFactor * multiplier);
         currentCap += 1;
+        this.setState({
+          correct: 1,
+          total: 2
+        })
+      } else if (this.state.multi === 'true') {
+        multiAnswer = 'Correct';
+        multiplier *= 1.7;
+        moveFactor = Math.ceil(moveFactor * multiplier);
+        this.setState({
+          correct: 1,
+          total: 1
+        })
+      } else if (node.pronunciation) {
+        multiplier /= 1.7;
+        moveFactor = Math.ceil(moveFactor * multiplier);
+        currentCap += 1;
+        this.setState({
+          currect: 0,
+          total: 2
+        })
       } else {
         multiplier /= 1.7;
         moveFactor = Math.ceil(moveFactor * multiplier);
         currentCap += 1;
+        this.setState({
+          currect: 0,
+          total: 1
+        })
       }
       
       questionCount += 1;
@@ -121,7 +154,7 @@ class QuestionPage extends Component {
         multi: null,
         lesson: this.lesson
       });
-      console.log('props mount', this.state);
+      
     } else if (this.state.input) {
       alert('Multiple choice selection required');
     } else if (this.state.multi){
@@ -135,7 +168,9 @@ class QuestionPage extends Component {
     this.lesson.delete(0);
     this.props.dispatch(nextQuestion());
     this.setState({
-      lesson: this.lesson
+      lesson: this.lesson,
+      correct: null,
+      total: null
     })
     // const resetValues = document.getElementsByClassName('reset-form');
     // resetValues.checked = false;
@@ -157,7 +192,7 @@ class QuestionPage extends Component {
     if(!this.lesson) {
      return <div>Loading</div>
     }
-    console.log('render', this.state);
+    
     const node = this.state.lesson.head.value;
     let count = this.props.questionCount;
     let cap = this.props.currentCap;
@@ -176,21 +211,11 @@ class QuestionPage extends Component {
   
     let resultsRender;
 
-    if (this.props.results && node.pronunciation){
+    if (this.props.results){
       resultsRender = (
         <section className="results">
           <div>These are the results</div>
-          <div>You are {this.props.multiAnswer}, the answer is Y</div>
-          <div>You are {this.props.pronunciationAnswer}, the pronunciation is {node.pronunciation}</div>
-          <button onClick={() => this.nextQuestion()}>Next</button>
-        </section>
-      );
-    } else if (this.props.results){
-      resultsRender = (
-        <section className= "results">
-          <h1>{node.text}</h1>
-          <div>These are the results</div>
-          <div>You are {this.props.multiAnswer}, the answer is Y</div>
+          <div>You got {this.state.correct} out of {this.state.total} correct. </div>
           <button onClick={() => this.nextQuestion()}>Next</button>
         </section>
       );
