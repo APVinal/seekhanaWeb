@@ -18,9 +18,10 @@ export const fetchLessonsSuccess = lessons => ({
 });
 
 export const ADD_LESSON_SUCCESS = 'ADD_LESSON_SUCCESS';
-export const addLessonSuccess = user => ({
+export const addLessonSuccess = (user, lesson) => ({
   type: ADD_LESSON_SUCCESS,
-  user
+  user,
+  lesson
 })
 
 export const FETCH_ERROR = 'FETCH_ERROR';
@@ -121,8 +122,9 @@ export const updateUserLessons = (accessToken, userId, lesson) => dispatch => {
     return response.json();
   }).then(user => {
     console.log('made it into the action');
-    dispatch(addLessonSuccess(user));
+    dispatch(addLessonSuccess(user, lesson));
   }).catch(error => {
+    console.log('Fetch error in add lesson', error);
     dispatch(fetchError(error));
   })
 }

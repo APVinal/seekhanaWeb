@@ -63,10 +63,11 @@ export default (state=initialState, action) => {
       currentLesson: action.lesson
     });
   } else if (action.type === ADD_LESSON_SUCCESS) {
+    console.log('reducer hit for add lesson success', action);
     return Object.assign({}, state, {
       loading: false,
       error: null,
-      userLessons: action.lesson,
+      userLessons: action.user[0].lessons,
       currentLesson: action.lesson._id
     });
   } else if (action.type === CHECK_ANSWER) {

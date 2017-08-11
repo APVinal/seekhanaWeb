@@ -20,8 +20,6 @@ header{
   background-color:#70146a;
   display:flex;
   padding:10px;
-  padding-left:90px;
-  padding-right:90px;
   font-weight:600;
   color:#fc5e21;
 }
@@ -32,9 +30,12 @@ header{
   margin:auto;
   padding-left:90px;
   padding-right:90px;
+  display:flex;
+  justify-content:space-between;
 }
 
 main{
+  width:100%;
   max-width:1200px;
   margin:auto;
 }
@@ -171,8 +172,210 @@ button.login:hover{
   cursor: pointer;
 }
 
+button.headerLogin{
+  width:100px;
+  height:50px;
+  margin-top:auto;
+  margin-bottom:auto;
+  transition: .3s ease-in-out;
+}
+
+button.headerLogin:hover{
+  transition: .3s ease-in-out;
+  background-color:#70146a;
+  color:#fc5e21;
+}
+
+div.login{
+  margin-top:auto;
+  margin-bottom:auto;
+}
+
 .google{
   margin-top:5px;
   color:white;
   font-size:15px;
+}
+
+.lessons{
+  margin-top:5%;
+  padding-left:90px;
+  padding-right:90px;
+  justify-content: space-between;
+  height:75vh;
+}
+
+.lessons-2{
+  margin-left:20px;
+  margin-right:20px;
+}
+
+.lessons-1, .lessons-2, .lessons-3{
+  height:100%;
+  background-color:rgba(255,255,255, 0.3);
+  padding:30px;
+  padding-top:80px;
+  width:30vw;
+  /* border: solid 3px #70146a; */
+  border-radius:1em;
+  position:relative;
+  overflow:hidden;
+}
+
+.lessHeader{
+  width:100%;
+  text-align:center;
+  background-color:#70146a;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  padding:20px;
+  color:white;
+  font-family: 'Varela Round', sans-serif;
+  font-size:25px;
+  letter-spacing: 1.5px;
+}
+
+.lesson{
+  border:none;
+  width:100%;
+  height:70px;
+  text-align: center;
+  margin-bottom:10px;
+  background-color:#70146a;
+  font-family: 'Varela Round', sans-serif;
+  font-size:20px;
+  color:white;
+  border-radius:1em;
+  transition: .3s ease-in-out;
+}
+
+.lesson:hover{
+  background-color:#fc5e21;
+  transition: .3s ease-in-out;
+  cursor:pointer;
+}
+
+.goArrow{
+  margin-left:-15px;
+  opacity:0;
+  transition: .5s ease-in-out;
+}
+
+.lesson:hover > .goArrow{
+  margin-left:15px;
+  opacity:1;
+  transition: .5s ease-in-out;
+}
+
+.comingSoon{
+  width:100%;
+  text-align: center;
+  background-color:#70146a;
+  padding:20px;
+  font-family: 'Varela Round', sans-serif;
+  font-size:20px;
+  color:white;
+  border-radius:1em;
+}
+
+.card{
+    margin: auto;
+    padding: 40px;
+    padding-top: 200px;
+    background-color: white;
+    margin-top: 5%;
+    border-radius: .5em;
+    height: 65vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.card > h1{
+  text-align: center;
+  font-size: 2vw;
+  background-color: #70146a;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.multiChoice{
+  margin-bottom:20px;
+  display:flex;
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  justify-content: space-around;
+}
+
+.choice{
+  margin: 5px;
+}
+
+form.container{
+  flex-wrap:wrap;
+  width:400px;
+  flex-direction:column;
+}
+
+input[type="radio"] {
+	opacity: 0;
+	width: 0;
+  height: 0;
+}
+
+label{
+  display: flex;
+  width: 150px;
+  height: 100px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color:white;
+}
+
+label:hover{
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+input[type="radio"]:active ~ label {
+  color:#fc5e21;
+}
+
+input[type="radio"]:checked ~ label {
+  opacity: 1;
+	border: 1px solid blue;
+}
+
+label[for="translit"]{
+  display:inline;
+  padding:0px;
+  height:fit-content;
+  width: 88%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+#translit{
+  height: 40px;
+  width: 88%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+#translit ~ button{
+  width:88%;
+  margin:auto;
+}
+
+label[for="translit"]:hover{
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0);
 }

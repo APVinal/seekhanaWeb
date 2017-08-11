@@ -12,14 +12,14 @@ class App extends Component {
 
     if (!this.props.accessToken) {
       loginButton = (
-        <div>
-          <a href={'/api/auth/google'}><button className="login">Sign In</button></a>
+        <div className="login">
+          <a href={'/api/auth/google'}><button className="login headerLogin">Sign In</button></a>
         </div>
       )
     } else {
       loginButton = (
-        <div>
-          <a href={'/api/auth/logout'}><button className="login">Sign Out</button></a>
+        <div className="login">
+          <a href={'/api/auth/logout'}><button className="login headerLogin">Sign Out</button></a>
         </div>
       )
     }
@@ -35,7 +35,8 @@ class App extends Component {
               </div>
               {loginButton}
             </div>
-          </header> 
+          </header>
+          <div className="bg"><img className="bg-pattern" src="./images/bg-pattern.svg"/></div> 
           <div className="parent container">
             <Route exact path='/' component={Login}/>
             <Route exact path='/lessons' component={Lessons}/>

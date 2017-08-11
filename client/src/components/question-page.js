@@ -12,20 +12,38 @@ class QuestionPage extends Component {
     }
   }
   componentWillMount(){
-    console.log('question page');
-    console.log('props lesson',this.props.lessons);
-    console.log('props id', this.props.lessonId);
-    let newLesson = new LinkedList();
-    let i = 0;
-    const lessonArray = this.findLesson(this.props.lesson, this.props.lessonId).questions;
-    const randomizedLesson = this.randomizeArray(lessonArray);
-    const selectedLesson = randomizedLesson.slice(0, 10);
+    if(this.findLesson(this.props.lesson, this.props.lessonId)) {
+      let newLesson = new LinkedList();
+      let i = 0;
+      const lessonArray = this.findLesson(this.props.lesson, this.props.lessonId).questions;
+      const randomizedLesson = this.randomizeArray(lessonArray);
+      const selectedLesson = randomizedLesson.slice(0, 10);
 
-    selectedLesson.forEach(question => {
-      newLesson.insert(i++, question);
-    });
+      selectedLesson.forEach(question => {
+        newLesson.insert(i++, question);
+      });
 
-    this.lesson = newLesson;
+      this.lesson = newLesson;
+    }
+  }
+
+    componentWillReceiveProps(nextProps){
+      console.log('will Receive');
+      console.log('lesson id', this.props.lessonId);
+      console.log('next props lesson id', nextProps.lessonId);
+    if(this.findLesson(nextProps.lesson, nextProps.lessonId)) {
+      let newLesson = new LinkedList();
+      let i = 0;
+      const lessonArray = this.findLesson(nextProps.lesson, nextProps.lessonId).questions;
+      const randomizedLesson = this.randomizeArray(lessonArray);
+      const selectedLesson = randomizedLesson.slice(0, 10);
+
+      selectedLesson.forEach(question => {
+        newLesson.insert(i++, question);
+      });
+
+      this.lesson = newLesson;
+    }
   }
 
   swap(arr, i, j){
@@ -48,6 +66,7 @@ class QuestionPage extends Component {
         return arr[i];
       }
     }
+    return false;
   }
 
   checkLength(linkedList){
@@ -123,6 +142,11 @@ class QuestionPage extends Component {
   }
 
   render() {
+    console.log('props in render', this.props);
+    if(!this.lesson) {
+     return <div>Loading</div>
+    }
+    
     const node = this.lesson.head.value;
     let count = this.props.questionCount;
     let cap = this.props.currentCap;
@@ -143,7 +167,7 @@ class QuestionPage extends Component {
 
     if (this.props.results && node.pronunciation){
       resultsRender = (
-        <section>
+        <section className="results">
           <div>These are the results</div>
           <div>You are {this.props.multiAnswer}, the answer is Y</div>
           <div>You are {this.props.pronunciationAnswer}, the pronunciation is {node.pronunciation}</div>
@@ -152,7 +176,7 @@ class QuestionPage extends Component {
       );
     } else if (this.props.results){
       resultsRender = (
-        <section>
+        <section className= "results">
           <h1>{node.text}</h1>
           <div>These are the results</div>
           <div>You are {this.props.multiAnswer}, the answer is Y</div>
@@ -163,50 +187,73 @@ class QuestionPage extends Component {
 
     if (node.pronunciation) {
       return (
-        <div>
-          <h1>{node.text}</h1>
-          <form>
-            <label>{node.choices[0].text} </label>
-            <input type='radio' name='questions' value={node.choices[0].correct}
-                    onClick={(e) => this.updateMulti(e.target.value)} required />
-            <label>{node.choices[1].text} </label>
-            <input type='radio' name='questions' value={node.choices[1].correct} 
-                    onClick={(e) => this.updateMulti(e.target.value)} />
-            <label>{node.choices[2].text} </label>
-            <input type='radio' name='questions' value={node.choices[2].correct} 
-                    onClick={(e) => this.updateMulti(e.target.value)} />
-            <label>{node.choices[3].text} </label>
-            <input type='radio' name='questions' value={node.choices[3].correct}
-                    onClick={(e) => this.updateMulti(e.target.value)} />
-
-            <label>Answer</label>
-            <input type='text' onChange={e=> this.updateInput(e.target.value)} />
-            <button onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
-          </form>
-          {resultsRender}
-        </div>
+        <main className="container">
+          <div className="card card-primary">
+          <h1 className="container">{node.text}</h1>
+            <form className="container">
+              <div className="multiChoice">
+                <div className="choice answerChoice-1">
+                  <input id="answerChoice-1" type='radio' name='questions' value={node.choices[0].text} 
+                          onClick={(e) => this.updateMulti(e.target.value)} />
+                  <label htmlFor="answerChoice-1">{node.choices[0].text} </label>
+                </div>
+                <div className="choice answerChoice-2">
+                  <input id="answerChoice-2" type='radio' name='questions' value={node.choices[1].text} 
+                          onClick={(e) => this.updateMulti(e.target.value)} />
+                  <label htmlFor="answerChoice-2">{node.choices[1].text} </label>
+                </div>
+                <div className="choice answerChoice-3">
+                  <input id="answerChoice-3" type='radio' name='questions' value={node.choices[2].text} 
+                          onClick={(e) => this.updateMulti(e.target.value)} />
+                  <label htmlFor="answerChoice-3">{node.choices[2].text} </label>
+                </div>
+                <div className="choice answerChoice-4">
+                  <input id="answerChoice-4" type='radio' name='questions' value={node.choices[3].text} 
+                            onClick={(e) => this.updateMulti(e.target.value)} />
+                  <label htmlFor="answerChoice-4">{node.choices[3].text} </label>
+                </div>
+              </div>
+              <label htmlFor="translit">Transliteration</label>
+              <input id="translit" type='text' onChange={e=> this.updateInput(e.target.value)} />
+              <button className="login" onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
+            </form>
+            {resultsRender}
+          </div>
+        </main>
         );      
     } else {
       return (
-        <div>
-          <h1>{node.text}</h1>
-          <form>
-            <label>{node.choices[0].text} </label>
-            <input type='radio' name='questions' value={node.choices[0].correct}
-                    onClick={(e) => this.updateMulti(e.target.value)} />
-            <label>{node.choices[1].text} </label>
-            <input type='radio' name='questions' value={node.choices[1].correct} 
-                    onClick={(e) => this.updateMulti(e.target.value)} />
-            <label>{node.choices[2].text} </label>
-            <input type='radio' name='questions' value={node.choices[2].correct} 
-                    onClick={(e) => this.updateMulti(e.target.value)} />
-            <label>{node.choices[3].text} </label>
-            <input type='radio' name='questions' value={node.choices[3].correct}
-                    onClick={(e) => this.updateMulti(e.target.value)} />
-            <button onClick={() => this.checkAnswers(node)}>Submit</button>
-          </form>
-            {resultsRender}
-        </div>
+        <main className="container">
+          <div className="card card-primary">
+            <h1 className="container">{node.text}</h1>
+            <form className="container">
+              <div className="multiChoice">
+                <div className="choice answerChoice-1">
+                  <input id="answerChoice-1" type='radio' name='questions' value={node.choices[0].text} 
+                          onClick={(e) => this.updateMulti(e.target.value)}/>
+                  <label htmlFor="answerChoice-1">{node.choices[0].text} </label>
+                </div>
+                <div className="choice answerChoice-2">
+                  <input id="answerChoice-2" type='radio' name='questions' value={node.choices[1].text} 
+                          onClick={(e) => this.updateMulti(e.target.value)} />
+                  <label htmlFor="answerChoice-2">{node.choices[1].text} </label>
+                </div>
+                <div className="choice answerChoice-3">
+                  <input id="answerChoice-3" type='radio' name='questions' value={node.choices[2].text} 
+                          onClick={(e) => this.updateMulti(e.target.value)} />
+                  <label htmlFor="answerChoice-3">{node.choices[2].text} </label>
+                </div>
+                <div className="choice answerChoice-4">
+                  <input id="answerChoice-4" type='radio' name='questions' value={node.choices[3].text} 
+                          onClick={(e) => this.updateMulti(e.target.value)} />
+                  <label htmlFor="answerChoice-4">{node.choices[3].text} </label>
+                </div>
+              </div>
+              <button onClick={() => this.checkAnswers(node)}>Submit</button>
+            </form>
+              {resultsRender}
+            </div>
+        </main>
       );
     }
   }
