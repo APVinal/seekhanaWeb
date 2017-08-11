@@ -8,7 +8,8 @@ class QuestionPage extends Component {
     super(props);
     this.state = {
       input: null,
-      multi: null
+      multi: null,
+      lesson: {}
     }
   }
   componentWillMount(){
@@ -24,6 +25,10 @@ class QuestionPage extends Component {
       });
 
       this.lesson = newLesson;
+      
+      this.setState({
+        lesson: newLesson
+      });
     }
   }
 
@@ -40,6 +45,10 @@ class QuestionPage extends Component {
       });
 
       this.lesson = newLesson;
+
+      this.setState({
+        lesson: newLesson
+      });
     }
   }
 
@@ -72,6 +81,7 @@ class QuestionPage extends Component {
 
   checkAnswers(e, node){
     e.preventDefault();
+    console.log(e);
     if (this.state.input && this.state.multi) {
       let multiAnswer = 'Incorrect';
       let pronunAnswer = 'Incorrect';
@@ -104,14 +114,14 @@ class QuestionPage extends Component {
       questionCount += 1;
       node.multiplier = multiplier;
 
-      console.log(moveFactor);
       this.lesson.insert(moveFactor, node);
       this.props.dispatch(checkAnswer(multiAnswer, pronunAnswer, currentCap, questionCount));
       this.setState({
         input: null,
-        multi: null
+        multi: null,
+        lesson: this.lesson
       });
-
+      console.log('props mount', this.state);
     } else if (this.state.input) {
       alert('Multiple choice selection required');
     } else if (this.state.multi){
@@ -124,6 +134,11 @@ class QuestionPage extends Component {
   nextQuestion(){
     this.lesson.delete(0);
     this.props.dispatch(nextQuestion());
+    this.setState({
+      lesson: this.lesson
+    })
+    // const resetValues = document.getElementsByClassName('reset-form');
+    // resetValues.checked = false;
   }
 
   updateInput(e){
@@ -142,8 +157,8 @@ class QuestionPage extends Component {
     if(!this.lesson) {
      return <div>Loading</div>
     }
-    
-    const node = this.lesson.head.value;
+    console.log('render', this.state);
+    const node = this.state.lesson.head.value;
     let count = this.props.questionCount;
     let cap = this.props.currentCap;
     let max = this.props.cappedLength;
@@ -186,7 +201,7 @@ class QuestionPage extends Component {
         <main className="container cardStack">
           <div className="card card-primary">
           <h1 className="container">{node.text}</h1>
-            <form className="container">
+            <form className="container reset-form">
               <div className="multiChoice">
                 <div className="choice answerChoice-1">
                   <input id="answerChoice-1" type='radio' name='questions' value={node.choices[0].correct} 
@@ -224,7 +239,7 @@ class QuestionPage extends Component {
         <main className="container cardStack">
           <div className="card card-primary">
             <h1 className="container">{node.text}</h1>
-            <form className="container">
+            <form className="container reset-form">
               <div className="multiChoice">
                 <div className="choice answerChoice-1">
                   <input id="answerChoice-1" type='radio' name='questions' value={node.choices[0].correct} 

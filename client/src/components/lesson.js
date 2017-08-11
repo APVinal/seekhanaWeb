@@ -48,7 +48,7 @@ class Lessons extends Component {
     }
     const lessons = this.props.lessons.map((lesson, index) => (
       <li key={index}>
-        <button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button>
+        <button className='lesson' onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button>
       </li>
     ));
 
