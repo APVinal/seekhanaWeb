@@ -12,6 +12,9 @@ class QuestionPage extends Component {
     }
   }
   componentWillMount(){
+    console.log('question page');
+    console.log('props lesson',this.props.lessons);
+    console.log('props id', this.props.lessonId);
     let newLesson = new LinkedList();
     let i = 0;
     const lessonArray = this.findLesson(this.props.lesson, this.props.lessonId).questions;

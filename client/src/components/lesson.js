@@ -29,10 +29,14 @@ class Lessons extends Component {
   }
 
   addQuiz(accessToken, lesson, userId) {
+    console.log('hit', this.props)
       if (this.checkTitle(this.props.userLessons, lesson)){
         this.props.dispatch(addLesson(lesson._id));
+        this.props.history.push(`/lesson/${lesson._id}`);
       } else {
+                console.log('history', this.props.history);
         this.props.dispatch(updateUserLessons(accessToken, userId, lesson));
+        this.props.history.push(`/lesson/${lesson._id}`);
       }
      
   }
@@ -44,7 +48,7 @@ class Lessons extends Component {
     }
     const lessons = this.props.lessons.map((lesson, index) => (
       <li key={index}>
-        <Link to={`/lesson/${lesson._id}`}><button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button></Link>
+        <button onClick={()=>this.addQuiz(this.props.accessToken, lesson, this.props.userId)}>{lesson.title}</button>
       </li>
     ));
 

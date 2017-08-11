@@ -120,6 +120,7 @@ export const updateUserLessons = (accessToken, userId, lesson) => dispatch => {
     }
     return response.json();
   }).then(user => {
+    console.log('made it into the action');
     dispatch(addLessonSuccess(user));
   }).catch(error => {
     dispatch(fetchError(error));
