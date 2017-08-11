@@ -215,7 +215,7 @@ class QuestionPage extends Component {
       resultsRender = (
         <section className="results">
           <div>You got {this.state.correct} out of {this.state.total} correct. </div>
-          <button onClick={() => this.nextQuestion()}>Next</button>
+          <button className="login" onClick={() => this.nextQuestion()}>Next</button>
         </section>
       );
     }
