@@ -8,9 +8,7 @@ SET_ACCESS_TOKEN,
 REMOVE_ACCESS_TOKEN,
 ADD_LESSON,
 CHECK_ANSWER,
-NEXT_QUESTION,
-UPDATE_ANSWER,
-INPUT_ANSWER
+NEXT_QUESTION
 } from '../actions/actions';
 
 const initialState = {
@@ -21,8 +19,6 @@ const initialState = {
   error: null,
   lessons: [],
   currentLesson: null,
-  selectedAnswer: false,
-  inputAnswer: null,
   showResults: false,
   multiAnswer: null,
   pronunciationAnswer: null,
@@ -87,15 +83,6 @@ export default (state=initialState, action) => {
       inputAnswer: null,
       selectedAnswer: false
     });
-  } else if (action.type === UPDATE_ANSWER) {
-    console.log(action);
-    return Object.assign({}, state, {
-      selectedAnswer: action.answer
-    });
-  } else if (action.type === INPUT_ANSWER) {
-    return Object.assign({}, state, {
-      inputAnswer: action.answer
-    })
   }
   console.log('reducer state', state);
   return state;

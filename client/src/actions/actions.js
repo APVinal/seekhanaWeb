@@ -60,18 +60,6 @@ export const nextQuestion = () => ({
   type: NEXT_QUESTION
 });
 
-export const UPDATE_ANSWER = 'UPDATE_ANSWER';
-export const updateAnswer = answer => ({
-  type: UPDATE_ANSWER,
-  answer
-});
-
-export const INPUT_ANSWER = 'INPUT_ANSWER';
-export const inputAnswer = answer => ({
-  type: INPUT_ANSWER,
-  answer
-});
-
 export const fetchUser = accessToken => dispatch => {
   dispatch(fetchRequest());
   dispatch(setAccessToken(accessToken));
