@@ -8,9 +8,7 @@ SET_ACCESS_TOKEN,
 REMOVE_ACCESS_TOKEN,
 ADD_LESSON,
 CHECK_ANSWER,
-NEXT_QUESTION,
-UPDATE_ANSWER,
-INPUT_ANSWER
+NEXT_QUESTION
 } from '../actions/actions';
 
 const initialState = {
@@ -21,11 +19,12 @@ const initialState = {
   error: null,
   lessons: [],
   currentLesson: null,
-  selectedAnswer: false,
-  inputAnswer: null,
   showResults: false,
   multiAnswer: null,
-  pronunciationAnswer: null
+  pronunciationAnswer: null,
+  cappedLength: 50,
+  currentCap: 25,
+  questionCount: 0
 };
 
 export default (state=initialState, action) => {
@@ -64,31 +63,27 @@ export default (state=initialState, action) => {
       currentLesson: action.lesson
     });
   } else if (action.type === ADD_LESSON_SUCCESS) {
+    console.log('reducer hit for add lesson success', action);
     return Object.assign({}, state, {
       loading: false,
       error: null,
-      userLessons: action.lesson,
+      userLessons: action.user[0].lessons,
       currentLesson: action.lesson._id
     });
   } else if (action.type === CHECK_ANSWER) {
     return Object.assign({}, state, {
       showResults: true,
       multiAnswer: action.multiAnswer,
-      pronunciationAnswer: action.pronunAnswer
+      pronunciationAnswer: action.pronunAnswer,
+      currentCap: action.currentCap,
+      questionCount: action.questionCount
     });
   } else if (action.type === NEXT_QUESTION) {
     return Object.assign({}, state, {
-      showResults: false
+      showResults: false,
+      inputAnswer: null,
+      selectedAnswer: false
     });
-  } else if (action.type === UPDATE_ANSWER) {
-    console.log(action);
-    return Object.assign({}, state, {
-      selectedAnswer: action.answer
-    });
-  } else if (action.type === INPUT_ANSWER) {
-    return Object.assign({}, state, {
-      inputAnswer: action.answer
-    })
   }
   console.log('reducer state', state);
   return state;

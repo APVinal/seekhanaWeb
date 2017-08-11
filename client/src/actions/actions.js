@@ -18,9 +18,10 @@ export const fetchLessonsSuccess = lessons => ({
 });
 
 export const ADD_LESSON_SUCCESS = 'ADD_LESSON_SUCCESS';
-export const addLessonSuccess = user => ({
+export const addLessonSuccess = (user, lesson) => ({
   type: ADD_LESSON_SUCCESS,
-  user
+  user,
+  lesson
 })
 
 export const FETCH_ERROR = 'FETCH_ERROR';
@@ -47,27 +48,17 @@ export const addLesson = lesson => ({
 });
 
 export const CHECK_ANSWER = 'CHECK_ANSWER';
-export const checkAnswer = (multiAnswer, pronunAnswer) => ({
+export const checkAnswer = (multiAnswer, pronunAnswer, currentCap, questionCount) => ({
   type: CHECK_ANSWER,
   multiAnswer,
-  pronunAnswer
+  pronunAnswer,
+  currentCap,
+  questionCount
 });
 
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 export const nextQuestion = () => ({
   type: NEXT_QUESTION
-});
-
-export const UPDATE_ANSWER = 'UPDATE_ANSWER';
-export const updateAnswer = answer => ({
-  type: UPDATE_ANSWER,
-  answer
-});
-
-export const INPUT_ANSWER = 'INPUT_ANSWER';
-export const inputAnswer = answer => ({
-  type: INPUT_ANSWER,
-  answer
 });
 
 export const fetchUser = accessToken => dispatch => {
@@ -130,8 +121,10 @@ export const updateUserLessons = (accessToken, userId, lesson) => dispatch => {
     }
     return response.json();
   }).then(user => {
-    dispatch(addLessonSuccess(user));
+    console.log('made it into the action');
+    dispatch(addLessonSuccess(user, lesson));
   }).catch(error => {
+    console.log('Fetch error in add lesson', error);
     dispatch(fetchError(error));
   })
 }
