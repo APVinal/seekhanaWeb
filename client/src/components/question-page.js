@@ -145,20 +145,29 @@ class QuestionPage extends Component {
       return (
         <main className="container">
           <div className="card card-primary">
-          <h1>{node.text}</h1>
-            <form>
-              <label>{node.choices[0].text} </label>
-              <input type='radio' name='questions' value={node.choices[0].correct} />
-              <label>{node.choices[1].text} </label>
-              <input type='radio' name='questions' value={node.choices[1].correct} />
-              <label>{node.choices[2].text} </label>
-              <input type='radio' name='questions' value={node.choices[2].correct} />
-              <label>{node.choices[3].text} </label>
-              <input type='radio' name='questions' value={node.choices[3].correct} />
-
-              <label>Answer</label>
-              <input type='text' onChange={e=> this.updateInput(e.target.value)} />
-              <button onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
+          <h1 className="container">{node.text}</h1>
+            <form className="container">
+              <div className="multiChoice">
+                <div className="choice answerChoice-1">
+                  <input id="answerChoice-1" type='radio' name='questions' value={node.choices[0].text} />
+                  <label htmlFor="answerChoice-1">{node.choices[0].text} </label>
+                </div>
+                <div className="choice answerChoice-2">
+                  <input id="answerChoice-2" type='radio' name='questions' value={node.choices[1].text} />
+                  <label htmlFor="answerChoice-2">{node.choices[1].text} </label>
+                </div>
+                <div className="choice answerChoice-3">
+                  <input id="answerChoice-3" type='radio' name='questions' value={node.choices[2].text} />
+                  <label htmlFor="answerChoice-3">{node.choices[2].text} </label>
+                </div>
+                <div className="choice answerChoice-4">
+                  <input id="answerChoice-4" type='radio' name='questions' value={node.choices[3].text} />
+                  <label htmlFor="answerChoice-4">{node.choices[3].text} </label>
+                </div>
+              </div>
+              <label htmlFor="translit">Transliteration</label>
+              <input id="translit" type='text' onChange={e=> this.updateInput(e.target.value)} />
+              <button className="login" onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
             </form>
             {resultsRender}
           </div>
@@ -168,16 +177,26 @@ class QuestionPage extends Component {
       return (
         <main className="container">
           <div className="card card-primary">
-            <h1>{node.text}</h1>
-            <form>
-              <label>{node.choices[0].text} </label>
-              <input type='radio' name='questions' value={node.choices[0].text} />
-              <label>{node.choices[1].text} </label>
-              <input type='radio' name='questions' value={node.choices[1].text} />
-              <label>{node.choices[2].text} </label>
-              <input type='radio' name='questions' value={node.choices[2].text} />
-              <label>{node.choices[3].text} </label>
-              <input type='radio' name='questions' value={node.choices[3].text} />
+            <h1 className="container">{node.text}</h1>
+            <form className="container">
+              <div className="multiChoice">
+                <div className="choice answerChoice-1">
+                  <input id="answerChoice-1" type='radio' name='questions' value={node.choices[0].text} />
+                  <label htmlFor="answerChoice-1">{node.choices[0].text} </label>
+                </div>
+                <div className="choice answerChoice-2">
+                  <input id="answerChoice-2" type='radio' name='questions' value={node.choices[1].text} />
+                  <label htmlFor="answerChoice-2">{node.choices[1].text} </label>
+                </div>
+                <div className="choice answerChoice-3">
+                  <input id="answerChoice-3" type='radio' name='questions' value={node.choices[2].text} />
+                  <label htmlFor="answerChoice-3">{node.choices[2].text} </label>
+                </div>
+                <div className="choice answerChoice-4">
+                  <input id="answerChoice-4" type='radio' name='questions' value={node.choices[3].text} />
+                  <label htmlFor="answerChoice-4">{node.choices[3].text} </label>
+                </div>
+              </div>
               <button onClick={() => this.checkAnswers(node)}>Submit</button>
             </form>
               {resultsRender}
