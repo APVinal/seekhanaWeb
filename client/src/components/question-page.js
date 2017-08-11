@@ -286,7 +286,7 @@ class QuestionPage extends Component {
                   <label htmlFor="answerChoice-4">{node.choices[3].text} </label>
                 </div>
               </div>
-              <button onClick={() => this.checkAnswers(node)}>Submit</button>
+              <button className="login" onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
             </form>
               {resultsRender}
             </div>
