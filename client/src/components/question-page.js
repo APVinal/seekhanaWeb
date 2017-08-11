@@ -7,7 +7,7 @@ class QuestionPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: null,
+      input: true,
       multi: null,
       lesson: {},
       correct: null,
@@ -83,11 +83,11 @@ class QuestionPage extends Component {
 
   checkAnswers(e, node){
     e.preventDefault();
-    if (this.state.input && this.state.multi) {
+    if (this.state.multi) {
       let multiAnswer = 'Incorrect';
       let pronunAnswer = 'Incorrect';
       let multiplier = node.multiplier;
-      let moveFactor = 10 - Math.floor((Math.random()* 5) + 1);
+      let moveFactor = this.checkLength(this.state.lesson) - Math.floor((Math.random()* 5) + 1);
       let currentCap = this.props.currentCap; 
       let questionCount = this.props.questionCount;
 
@@ -119,12 +119,12 @@ class QuestionPage extends Component {
           total: 2
         })
       } else if (this.state.multi === 'true') {
+        console.log('hit correctly');
         multiAnswer = 'Correct';
-        multiplier *= 1.7;
+        multiplier = Math.min((multiplier * 1.7), 1);
         moveFactor = Math.ceil(moveFactor * multiplier);
         this.setState({
-          correct: 1,
-          total: 1
+          correct: 'Correct!'
         })
       } else if (node.pronunciation) {
         multiplier /= 1.7;
@@ -159,9 +159,9 @@ class QuestionPage extends Component {
       alert('Multiple choice selection required');
     } else if (this.state.multi && node.pronunciation){
       alert('Input field required');
-    } else if (!this.state.multi){
+    } else if (this.state.muli === null){
       alert('Selection is required');
-    } else {
+    } else if (this.state.muli === null && this.state.input === null){
       alert('Input field and multiple choice required')
     }
   }
@@ -171,7 +171,7 @@ class QuestionPage extends Component {
     this.props.dispatch(nextQuestion());
     this.setState({
       lesson: this.lesson,
-      correct: null,
+      correct: 'Sorry, that\'s wrong',
       total: null
     })
     // const resetValues = document.getElementsByClassName('reset-form');
@@ -216,7 +216,7 @@ class QuestionPage extends Component {
     if (this.props.results){
       resultsRender = (
         <section className="results">
-          <div>You got {this.state.correct} out of {this.state.total} correct. </div>
+          <div>{this.state.correct}</div>
           <button className="login" onClick={() => this.nextQuestion()}>Next</button>
         </section>
       );
