@@ -182,7 +182,7 @@ class QuestionPage extends Component {
           <div>These are the results</div>
           <div>You are {this.props.multiAnswer}, the answer is Y</div>
           <div>You are {this.props.pronunciationAnswer}, the pronunciation is {node.pronunciation}</div>
-          <button onClick={() => this.nextQuestion()}>Next</button>
+          <button className="login" onClick={() => this.nextQuestion()}>Next</button>
         </section>
       );
     } else if (this.props.results){
@@ -191,7 +191,7 @@ class QuestionPage extends Component {
           <h1>{node.text}</h1>
           <div>These are the results</div>
           <div>You are {this.props.multiAnswer}, the answer is Y</div>
-          <button onClick={() => this.nextQuestion()}>Next</button>
+          <button className="login" onClick={() => this.nextQuestion()}>Next</button>
         </section>
       );
     }
