@@ -157,8 +157,10 @@ class QuestionPage extends Component {
       
     } else if (this.state.input) {
       alert('Multiple choice selection required');
-    } else if (this.state.multi){
+    } else if (this.state.multi && node.pronunciation){
       alert('Input field required');
+    } else if (!this.state.multi){
+      alert('Selection is required');
     } else {
       alert('Input field and multiple choice required')
     }
