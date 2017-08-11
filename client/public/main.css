@@ -283,13 +283,14 @@ div.login{
 .card{
     margin: auto;
     padding: 40px;
-    padding-top: 200px;
+    padding-top: 175px;
     background-color: white;
     margin-top: 5%;
     border-radius: .5em;
     height: 65vh;
     position: relative;
     overflow: hidden;
+    box-shadow: -6px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .card > h1{
@@ -340,10 +341,15 @@ label{
   justify-content: center;
   align-items: center;
   background-color:white;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.05);
+  transition: .2s ease-out;
+  font-family: 'Varela Round', sans-serif;
 }
 
 label:hover{
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.09);
+  transition:.2s ease-in;
+  cursor:pointer;
 }
 
 input[type="radio"]:active ~ label {
@@ -351,8 +357,8 @@ input[type="radio"]:active ~ label {
 }
 
 input[type="radio"]:checked ~ label {
-  opacity: 1;
-	border: 1px solid blue;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.05);
+  border: solid 2px #70146a;
 }
 
 label[for="translit"]{
@@ -362,20 +368,76 @@ label[for="translit"]{
   width: 88%;
   margin: auto;
   margin-bottom: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0);
+}
+
+label[for="translit"]:hover{
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0);
+  cursor:auto;
+  margin-bottom:10px;
 }
 
 #translit{
   height: 40px;
   width: 88%;
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+  outline:none;
+  border:none;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.05);
+  transition: .2s ease-out;
+  font-family: 'Varela Round', sans-serif;
+  padding:5px;
+  padding-left:15px;
+  font-size:15px;
+}
+
+#translit:focus{
+  outline:none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.09);
+  transition:.2s ease-in;
 }
 
 #translit ~ button{
   width:88%;
   margin:auto;
+  margin-bottom:-10px;
 }
 
-label[for="translit"]:hover{
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0);
+.cardStack{
+  position:relative;
+  max-width:480px;
+}
+
+.card.back{
+  position:absolute;
+  width:480px;
+  z-index:-999;
+}
+
+.card.back{
+  background-color:#e6e6e6;
+}
+
+.card.back > h1 {
+  background-color: #8A3E85;
+}
+
+.card.back.a{
+  transform: rotate(-3deg) translateX(-2px);
+}
+
+.card.back.b{
+  transform: rotate(3deg) translateY(2px);
+}
+
+section.results{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 40%;
+  text-align: center;
+  background-color: rgba(252, 94, 33, 0.5);
 }

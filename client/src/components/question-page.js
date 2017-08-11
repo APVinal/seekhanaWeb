@@ -183,7 +183,7 @@ class QuestionPage extends Component {
 
     if (node.pronunciation) {
       return (
-        <main className="container">
+        <main className="container cardStack">
           <div className="card card-primary">
           <h1 className="container">{node.text}</h1>
             <form className="container">
@@ -215,11 +215,13 @@ class QuestionPage extends Component {
             </form>
             {resultsRender}
           </div>
+          <div className="card back a"><h1></h1></div>
+          <div className="card back b"><h1></h1></div>
         </main>
         );      
     } else {
       return (
-        <main className="container">
+        <main className="container cardStack">
           <div className="card card-primary">
             <h1 className="container">{node.text}</h1>
             <form className="container">
@@ -249,6 +251,8 @@ class QuestionPage extends Component {
             </form>
               {resultsRender}
             </div>
+          <div className="card back a"></div>
+          <div className="card back b"></div>
         </main>
       );
     }
