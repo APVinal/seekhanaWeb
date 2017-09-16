@@ -82,20 +82,16 @@ app.get('/api/auth/google/callback',
                     throw new Error(err);
                 }
                 res.cookie('accessToken', req.user.accessToken, {expires: 0}).redirect('/lessons');
-            });
-      // res.cookie('accessToken', req.user.accessToken, {expires: 0});
-      // res.redirect('/lessons');        
+            });       
     }
 );
 
 app.get('/api/users/:accessToken', 
-    // passport.authenticate('bearer', {session: false}),
+    passport.authenticate('bearer', {session: false}),
     (req,res) =>{
-      console.log('we made it this far');
         User
             .find({accessToken: req.params.accessToken})
             .then(user => {
-              console.log('this is our user', user);
                 res.json(user);
             });
 });

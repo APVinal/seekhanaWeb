@@ -29,7 +29,6 @@ class Lessons extends Component {
   }
 
   addQuiz(accessToken, lesson, userId) {
-    console.log('hit', this.props)
       if (this.checkTitle(this.props.userLessons, lesson)){
         this.props.dispatch(addLesson(lesson._id));
         this.props.history.push(`/lesson/${lesson._id}`);
@@ -54,9 +53,6 @@ class Lessons extends Component {
 
     return (
       <main>
-        {/* <div>
-          <a href={'/api/auth/logout'}><button>Log Out</button></a>
-        </div> */}
         <div className="lessons container">
           <div className="lessons-1 container column">
             <div className="lessHeader"><h2> Beginner </h2></div>
