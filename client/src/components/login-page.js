@@ -8,7 +8,7 @@ import './login-page.css';
    render() {
      return (
         <main className="login grid">
-          <div className="wowImg container"><img className="mandala"src="./images/3100_Mandala.svg"/></div> 
+          <div className="wowImg container"><img className="mandala"src="./images/mandala-logo.svg"/></div> 
           <div className="landingCopy container column">
             <div className="namaste container"><span className="helloText"></span><div className="cursor"></div></div>
             <div className="infoText">
