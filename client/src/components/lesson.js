@@ -4,6 +4,8 @@ import * as Cookies from 'js-cookie';
 import { fetchUser, fetchLessons, addLesson, updateUserLessons } from '../actions/actions';
 import {Link} from 'react-router-dom';
 
+import './lesson.css';
+
 class Lessons extends Component {
 
   componentWillMount() {
@@ -51,22 +53,20 @@ class Lessons extends Component {
     ));
 
     return (
-      <main>
-        <div className="lessons container">
-          <div className="lessons-1 container column">
-            <div className="lessHeader"><h2> Beginner </h2></div>
-            <ul>
-              {lessons}
-            </ul>
-          </div>
-          <div className="lessons-2 container column">
-            <div className="lessHeader"><h2> Intermediate </h2></div>
-            <div className="comingSoon"><h3>Coming Soon</h3></div>
-          </div>
-          <div className="lessons-3 container column">
-            <div className="lessHeader"><h2> Advanced </h2></div>
-            <div className="comingSoon"><h3>Coming Soon</h3></div>
-          </div>
+      <main className="lessons grid">
+        <div className="lessons-1 container column">
+          <div className="lessHeader"><h2> Beginner </h2></div>
+          <ul>
+            {lessons}
+          </ul>
+        </div>
+        <div className="lessons-2 container column">
+          <div className="lessHeader"><h2> Intermediate </h2></div>
+          <div className="comingSoon"><h3>Coming Soon</h3></div>
+        </div>
+        <div className="lessons-3 container column">
+          <div className="lessHeader"><h2> Advanced </h2></div>
+          <div className="comingSoon"><h3>Coming Soon</h3></div>
         </div>
       </main>
     );

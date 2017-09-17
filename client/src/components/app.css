@@ -76,3 +76,85 @@ main {
   grid-column-end: span 1;
   grid-row-start: 2;
   grid-row-end: span 1; }
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  width: 107.77px; }
+
+.latin {
+  margin-top: -5px;
+  text-align: center;
+  font-weight: 400; }
+
+.hindi {
+  font-size: 40px;
+  margin-bottom: 3px; }
+
+.namaste {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 80px;
+  min-width: 7px; }
+
+.helloText {
+  padding-right: 5px;
+  color: white; }
+
+@keyframes cursor-blink {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+.cursor {
+  background-color: white;
+  width: 5px;
+  height: 80px;
+  animation-name: cursor-blink;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite; }
+
+button.login {
+  font-family: 'Varela Round', sans-serif;
+  margin: auto;
+  margin-top: 10px;
+  outline: none;
+  width: 300px;
+  height: 60px;
+  border: none;
+  border-radius: 40px;
+  background-color: #70146a;
+  font-size: 20px;
+  color: white;
+  transition: background-color .5s ease-in-out; }
+
+button.login:hover {
+  transition: background-color .5s ease-in-out;
+  background-color: #fc5e21;
+  cursor: pointer; }
+
+button.headerLogin {
+  width: 100px;
+  height: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+  transition: .3s ease-in-out; }
+
+button.headerLogin:hover {
+  transition: .3s ease-in-out;
+  background-color: #70146a;
+  color: #fc5e21; }
+
+div.login {
+  margin-top: auto;
+  margin-bottom: auto; }
+
+.google {
+  margin-top: 5px;
+  color: white;
+  font-size: 15px; }
