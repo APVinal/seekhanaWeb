@@ -1,9 +1,9 @@
-*{
+/* *{
   box-sizing:border-box;
   font-family: 'Hind Vadodara', sans-serif;
-}
+} */
 
-.container{
+/* .container{
   display:flex;
 }
 
@@ -13,18 +13,18 @@
 
 body{
   background-color:#C45AB3;
-}
+} */
 
-header{
+/* header{
   width:100%;
   background-color:#70146a;
   display:flex;
   padding:10px;
   font-weight:600;
   color:#fc5e21;
-}
+} */
 
-.headerContent{
+/* .headerContent{
   width:100%;
   max-width:1200px;
   margin:auto;
@@ -32,13 +32,13 @@ header{
   padding-right:90px;
   display:flex;
   justify-content:space-between;
-}
+} */
 
-main{
+/* main{
   width:100%;
   max-width:1200px;
   margin:auto;
-}
+} */
 
 .logo{
   display:flex;
@@ -77,11 +77,6 @@ main{
   100%{opacity:1;}
 }
 
-.landing{
-  width:100%;
-  overflow:hidden;
-}
-
 .cursor{
   background-color:white;
   width:5px;
@@ -95,27 +90,25 @@ main{
   width:100%;
   max-width:565px;
   margin:auto;
-  /* height:100%; */
-  /* margin-top:-15px; */
 }
 
-.bg{
+/* .bg{
   position:absolute;
   z-index:-1111;
   width:100%;
   height:100%;
   overflow:hidden;
-}
+} */
 
-.bg-pattern{
+/* .bg-pattern{
   width:200%;
   margin-left:-600px;
   margin-top:-600px;
   height:auto;
   opacity:.3;
-}
+} */
 
-footer{
+/* footer{
   width:100%;
   background-color:#70146a;
   height:5%;
@@ -126,30 +119,29 @@ footer{
   font-size:10px;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.halfScreen{
+/* .halfScreen{
   width:50%; 
   padding-top:30px;
   padding-left:50px;
   padding-right:50px;
   align-items:center;
-}
+} */
 
-.infoText{
+/* .infoText{
   margin-top:20px;
   color:white;
-  /* font-size:2vw; */
   font-size:25px;
   text-align:center;
-}
+} */
 
-.infoText > p{
+/* .infoText > p{
   font-family: 'Varela Round', sans-serif;
   margin-top:10px;
   margin-bottom:10px;
   line-height: 1.2;
-}
+} */
 
 button.login{
   font-family: 'Varela Round', sans-serif;
@@ -216,7 +208,6 @@ div.login{
   padding:30px;
   padding-top:80px;
   width:30vw;
-  /* border: solid 3px #70146a; */
   border-radius:1em;
   position:relative;
   overflow:hidden;

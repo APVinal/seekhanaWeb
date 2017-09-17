@@ -31,11 +31,10 @@ class Lessons extends Component {
   addQuiz(accessToken, lesson, userId) {
       if (this.checkTitle(this.props.userLessons, lesson)){
         this.props.dispatch(addLesson(lesson._id));
-        this.props.history.push(`/lesson/${lesson._id}`);
+        this.props.history.push(`/lessons/${lesson._id}`);
       } else {
-                console.log('history', this.props.history);
         this.props.dispatch(updateUserLessons(accessToken, userId, lesson));
-        this.props.history.push(`/lesson/${lesson._id}`);
+        this.props.history.push(`/lessons/${lesson._id}`);
       }
      
   }

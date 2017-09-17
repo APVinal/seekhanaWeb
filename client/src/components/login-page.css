@@ -1,0 +1,30 @@
+main {
+  grid-template-columns: 50%;
+  margin-top: 20px; }
+
+.wowImg {
+  align-items: center;
+  grid-column-start: 1;
+  grid-column-end: span 1; }
+
+.landingCopy {
+  grid-column-start: 2;
+  grid-column-end: span 1;
+  align-items: center; }
+
+.infoText {
+  margin-top: 20px;
+  color: white;
+  font-size: 25px;
+  text-align: center; }
+  .infoText p {
+    font-family: 'Varela Round', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    max-width: 500px; }
+
+.mandala {
+  width: 100%;
+  max-width: 500px;
+  margin: auto; }

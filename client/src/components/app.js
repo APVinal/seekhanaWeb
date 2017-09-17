@@ -7,6 +7,8 @@ import QuestionPage from './question-page';
 import {connect} from 'react-redux';
 import { fetchUser, fetchLessons, addLesson, updateUserLessons } from '../actions/actions';
 
+import './app.css';
+
 class App extends Component {
   componentDidMount(){
     const accessToken = Cookies.get('accessToken');
@@ -42,7 +44,8 @@ class App extends Component {
 
     return (
       <Router>
-        <div>
+        <div className="super grid">
+          <div className="bg"><img className="bg-pattern" src="./images/bg-pattern.svg"/></div>
           <header>
             <div className="headerContent">
               <div className="logo">
@@ -52,12 +55,13 @@ class App extends Component {
               {loginButton}
             </div>
           </header>
-          <div className="bg"><img className="bg-pattern" src="./images/bg-pattern.svg"/></div> 
-          <div className="parent container">
+
+ 
             <Route exact path='/lessons' component={Lessons}/>
-            <Route exact path='/lesson/:lessonId' component={QuestionPage}/>
+            <Route exact path='/lessons/:lessonId' component={QuestionPage}/>
             <Route exact path='/' render={() => redirect} />
-          </div>
+
+          
           <footer className="container">designed and developed by william martin and paton vinal | 2017 | we don't reserve any rights, so steal if you want to, i guess.</footer>
         </div>
       </Router>
