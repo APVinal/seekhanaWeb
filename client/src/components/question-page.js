@@ -9,6 +9,7 @@ class QuestionPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
       input: true,
       multi: null,
       lesson: {},
@@ -33,6 +34,9 @@ class QuestionPage extends Component {
       this.setState({
         lesson: newLesson
       });
+    }
+    if(this.props.accessToken === null){
+      this.props.history.push('/');
     }
   }
 
@@ -217,7 +221,6 @@ class QuestionPage extends Component {
 
     return (
       <main className="cardStack grid">
-        <div className="aspect">
           <div className="card card-primary">
             <h1 className="container">{node.text}</h1>
             <form className="grid">
@@ -250,7 +253,6 @@ class QuestionPage extends Component {
             </div>
           <div className="card back a"></div>
           <div className="card back b"></div>
-        </div>
       </main>
     );
   }
@@ -264,7 +266,8 @@ const mapStateToProps = state => ({
   pronunciationAnswer: state.pronunciationAnswer,
   currentCap: state.currentCap,
   questionCount: state.questionCount,
-  max: state.cappedLength
+  max: state.cappedLength,
+  accessToken: state.accessToken
 });
 
 export default connect(mapStateToProps)(QuestionPage);

@@ -48,10 +48,12 @@ class App extends Component {
           <div className="bg"><img className="bg-pattern" src="./images/bg-pattern.svg"/></div>
           <header>
             <div className="headerContent">
+              <Link to="/" >
               <div className="logo">
                 <span className="logoText hindi">सीखना</span>
                 <span className="logoText latin">seekhana</span>
               </div>
+              </Link>
               {loginButton}
             </div>
           </header>
