@@ -5,6 +5,10 @@ import './login-page.css';
 
  class Login extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
    render() {
      return (
         <main className="login grid">

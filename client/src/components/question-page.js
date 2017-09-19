@@ -9,7 +9,7 @@ class QuestionPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirect: false,
+      refresh: false,
       input: true,
       multi: null,
       lesson: {},
@@ -36,6 +36,12 @@ class QuestionPage extends Component {
       });
     }
     if(this.props.accessToken === null){
+      this.props.history.push('/');
+    }
+  }
+
+  componentDidMount(){
+    if(!this.lesson){
       this.props.history.push('/');
     }
   }
@@ -175,86 +181,88 @@ class QuestionPage extends Component {
   }
 
   render() {
-    if(!this.lesson) {
+    if(this.props.loading) {
      return <div>Loading</div>
     }
+    else{
     
-    const node = this.state.lesson.head.value;
-    let count = this.props.questionCount;
-    let cap = this.props.currentCap;
-    let max = this.props.cappedLength;
+      const node = this.state.lesson.head.value;
+      let count = this.props.questionCount;
+      let cap = this.props.currentCap;
+      let max = this.props.cappedLength;
 
-    let finalResults;
+      let finalResults;
 
-    if (count === cap || count === max){
+      if (count === cap || count === max){
 
-      // Feature to be implemented in the future. For now, We'll just allow the quiz to go on indefinitely.
+        // Feature to be implemented in the future. For now, We'll just allow the quiz to go on indefinitely.
 
-      // console.log('hit the end of the quiz');
-      // finalResults = (
-      //   <div>
-      //     These are the final results
-      //   </div>
-      // )
-    }
-  
-    let resultsRender;
-    let translit;
+        // console.log('hit the end of the quiz');
+        // finalResults = (
+        //   <div>
+        //     These are the final results
+        //   </div>
+        // )
+      }
+    
+      let resultsRender;
+      let translit;
 
-    if (this.props.results){
-      resultsRender = (
-        <section className="results">
-          <div>{this.state.correct}</div>
-          <button className="login" onClick={() => this.nextQuestion()}>Next</button>
-        </section>
+      if (this.props.results){
+        resultsRender = (
+          <section className="results">
+            <div>{this.state.correct}</div>
+            <button className="login" onClick={() => this.nextQuestion()}>Next</button>
+          </section>
+        );
+      }
+
+      if (node.pronunciation) {
+        translit = (
+          <div>
+            <label htmlFor="translit">Transliteration</label>
+            <input id="translit" type='text' onChange={e=> this.updateInput(e.target.value)} />
+          </div>
+        )
+      };
+
+      return (
+        <main className="cardStack grid">
+            <div className="card card-primary">
+              <h1 className="container">{node.text}</h1>
+              <form className="grid">
+                <div className="multiChoice">
+                  <div className="choice answerChoice-1">
+                    <input key={node.text + node.choices[0].text} id="answerChoice-1" type='radio' name='questions' value={node.choices[0].correct} 
+                            onClick={(e) => this.updateMulti(e.target.value)}/>
+                    <label htmlFor="answerChoice-1">{node.choices[0].text} </label>
+                  </div>
+                  <div className="choice answerChoice-2">
+                    <input key={node.text + node.choices[1].text} id="answerChoice-2" type='radio' name='questions' value={node.choices[1].correct} 
+                            onClick={(e) => this.updateMulti(e.target.value)} />
+                    <label htmlFor="answerChoice-2">{node.choices[1].text} </label>
+                  </div>
+                  <div className="choice answerChoice-3">
+                    <input key={node.text + node.choices[2].text} id="answerChoice-3" type='radio' name='questions' value={node.choices[2].correct} 
+                            onClick={(e) => this.updateMulti(e.target.value)} />
+                    <label htmlFor="answerChoice-3">{node.choices[2].text} </label>
+                  </div>
+                  <div className="choice answerChoice-4">
+                    <input key={node.text + node.choices[3].text} id="answerChoice-4" type='radio' name='questions' value={node.choices[3].correct} 
+                            onClick={(e) => this.updateMulti(e.target.value)} />
+                    <label htmlFor="answerChoice-4">{node.choices[3].text} </label>
+                  </div>
+                </div>
+                {translit}
+                <button className="cardSubmit" onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
+              </form>
+                {resultsRender}
+              </div>
+            <div className="card back a"></div>
+            <div className="card back b"></div>
+        </main>
       );
     }
-
-    if (node.pronunciation) {
-      translit = (
-        <div>
-          <label htmlFor="translit">Transliteration</label>
-          <input id="translit" type='text' onChange={e=> this.updateInput(e.target.value)} />
-        </div>
-      )
-    };
-
-    return (
-      <main className="cardStack grid">
-          <div className="card card-primary">
-            <h1 className="container">{node.text}</h1>
-            <form className="grid">
-              <div className="multiChoice">
-                <div className="choice answerChoice-1">
-                  <input key={node.text + node.choices[0].text} id="answerChoice-1" type='radio' name='questions' value={node.choices[0].correct} 
-                          onClick={(e) => this.updateMulti(e.target.value)}/>
-                  <label htmlFor="answerChoice-1">{node.choices[0].text} </label>
-                </div>
-                <div className="choice answerChoice-2">
-                  <input key={node.text + node.choices[1].text} id="answerChoice-2" type='radio' name='questions' value={node.choices[1].correct} 
-                          onClick={(e) => this.updateMulti(e.target.value)} />
-                  <label htmlFor="answerChoice-2">{node.choices[1].text} </label>
-                </div>
-                <div className="choice answerChoice-3">
-                  <input key={node.text + node.choices[2].text} id="answerChoice-3" type='radio' name='questions' value={node.choices[2].correct} 
-                          onClick={(e) => this.updateMulti(e.target.value)} />
-                  <label htmlFor="answerChoice-3">{node.choices[2].text} </label>
-                </div>
-                <div className="choice answerChoice-4">
-                  <input key={node.text + node.choices[3].text} id="answerChoice-4" type='radio' name='questions' value={node.choices[3].correct} 
-                          onClick={(e) => this.updateMulti(e.target.value)} />
-                  <label htmlFor="answerChoice-4">{node.choices[3].text} </label>
-                </div>
-              </div>
-              {translit}
-              <button className="cardSubmit" onClick={(e) => this.checkAnswers(e, node)}>Submit</button>
-            </form>
-              {resultsRender}
-            </div>
-          <div className="card back a"></div>
-          <div className="card back b"></div>
-      </main>
-    );
   }
 }
 
@@ -267,7 +275,8 @@ const mapStateToProps = state => ({
   currentCap: state.currentCap,
   questionCount: state.questionCount,
   max: state.cappedLength,
-  accessToken: state.accessToken
+  accessToken: state.accessToken,
+  loading: state.loading
 });
 
 export default connect(mapStateToProps)(QuestionPage);

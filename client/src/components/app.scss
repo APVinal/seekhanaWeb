@@ -115,3 +115,12 @@ button.headerLogin:hover{
   background-color:#70146a;
   color:#fc5e21;
 }
+
+@media only screen 
+and (max-device-width: 1024px) 
+and (orientation: portrait) 
+and (-webkit-min-device-pixel-ratio: 1) {
+  footer{
+    font-size: 8px;
+  }
+}

@@ -5,13 +5,15 @@ main.login {
 .wowImg {
   align-items: center;
   grid-column-start: 1;
-  grid-column-end: span 1; }
+  grid-column-end: span 1;
+  padding-bottom: 50vh; }
 
 .landingCopy {
   grid-column-start: 2;
   grid-column-end: span 1;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  padding-bottom: 50vh; }
 
 .infoText {
   margin-top: 20px;
@@ -90,3 +92,55 @@ div.login {
 .hindi {
   font-size: 40px;
   margin-bottom: 3px; }
+
+@media only screen and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+  .super {
+    overflow-x: hidden; }
+  .bg {
+    display: none; }
+  main.login {
+    margin-top: 20px;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto; }
+  .wowImg {
+    grid-row-start: 1;
+    z-index: -99;
+    grid-row-end: span 1;
+    grid-column-start: 1;
+    padding-bottom: 10px;
+    opacity: .3;
+    width: fit-content; }
+  .landingCopy {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    padding: 5vh;
+    padding-top: 0px; }
+  .infoText {
+    margin-top: 20px;
+    font-size: 5vw;
+    text-align: center; }
+    .infoText p {
+      font-family: 'Varela Round', sans-serif;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      line-height: 1.2; }
+  .namaste {
+    font-size: 15vw; }
+  .mandala {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: scale(2);
+    z-index: -99; }
+  .cursor {
+    height: 15vw; }
+  header {
+    z-index: 100; }
+  button.login {
+    width: 70vw;
+    height: 6vh;
+    font-size: 3vh; }
+  .google {
+    font-size: 1vh; } }

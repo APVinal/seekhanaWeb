@@ -10,6 +10,7 @@ import { fetchUser, fetchLessons, addLesson, updateUserLessons } from '../action
 import './app.css';
 
 class App extends Component {
+  
   componentDidMount(){
     const accessToken = Cookies.get('accessToken');
     if(accessToken){
@@ -28,7 +29,7 @@ class App extends Component {
         </div>
       );
       redirect = (
-        <Login />
+        <Login bg={this.bg}/>
       );
     } else {
       console.log('logged in')
@@ -45,7 +46,7 @@ class App extends Component {
     return (
       <Router>
         <div className="super grid">
-          <div className="bg"><img className="bg-pattern" src="./images/bg-pattern.svg"/></div>
+          <div className="bg" ref={bg => this.bg = bg}><img className="bg-pattern" src="./images/bg-pattern.svg"/></div>
           <header>
             <div className="headerContent">
               <Link to="/" >

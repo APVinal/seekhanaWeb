@@ -193,3 +193,14 @@ section.results > button.login {
   width: 70%;
   height: 20%;
   transition: .2 ease-out; }
+
+@media only screen and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+  .cardStack {
+    grid-template-columns: 100%;
+    grid-template-rows: 5vh 70%; }
+  .card {
+    grid-row-start: 2;
+    width: 80vw;
+    height: 106vw; }
+  .card.back {
+    grid-row-start: 2; } }
