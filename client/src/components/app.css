@@ -82,15 +82,6 @@ main {
   flex-direction: column;
   width: 107.77px; }
 
-.latin {
-  margin-top: -5px;
-  text-align: center;
-  font-weight: 400; }
-
-.hindi {
-  font-size: 40px;
-  margin-bottom: 3px; }
-
 button.headerLogin {
   font-size: 20px;
   padding: 5px;
@@ -104,12 +95,3 @@ button.headerLogin:hover {
   transition: .3s ease-in-out;
   background-color: #70146a;
   color: #fc5e21; }
-
-div.login {
-  margin-top: auto;
-  margin-bottom: auto; }
-
-.google {
-  margin-top: 5px;
-  color: white;
-  font-size: 1vw; }
