@@ -19,4 +19,4 @@ yarn-error.log*
 server/secret.js
 server/config.js
 
-src/**/*.css
+./client/src/**/*.css
