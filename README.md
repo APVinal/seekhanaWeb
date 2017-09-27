@@ -2,6 +2,10 @@
 
 What is Seekhana?
 -----------------
+सीखना (Transliteration: 'seekhana' or 'seekhna') is a Hindi word that, as a transitive verb, translates to english as 'to get' or 'to learn'. This is an app designed to help an english speaker pick up the basics of Hindi - the MVP focuses on the hindi alphabet.
+
+The Project
+------------
 Seekhana is an experimental app designed primarily for the creators to try our hand at creating a practical spaced repetition algorithm. It also served as a sandbox for learning the basics of CSS grid, as well as dealing with difficult layout tasks - such as keeping the aspect ratio of the question cards in tact while being responsive. The premise of the app is to teach the basics of Hindi to an english speaker, however this app is currently not ready to teach someone hindi. We'd love to get it to that point someday soon though, as there is a niche that needs filling when it comes to learning this beautiful language.
 
 Spaced Repetition
@@ -22,7 +26,7 @@ Here's how it works:
 * The multiplier is now stored with the question so that it can be referenced the next time this user answers this question.
 
 
-What runs Seekhana?
+What's the tech stack?
 -----------------
 * [MongoDB](https://www.mongodb.com/) - A NoSQL (document) database
 * [Express](http://expressjs.com/) - A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications
@@ -31,7 +35,8 @@ What runs Seekhana?
 
 Known Issues & Plans for the future
 -----------------
+* Due to some asyncronicity, a user accessing the app for the first time cannot go straight to a lesson from the lesson selector page. On the backend, that lesson is actually being migrated over to the user's profile - but the asynchronus nature of this flow is a kink we haven't quite had time to work out. As a temporary patch, a new user will click on the lesson TWICE in order to navigate to it the first time - this is a bandaid fix, as it simply redirects the user back to the lesson page very quickly - adding the lesson to the database on the first click, and navigating to it on the second click.
+* There is only one lesson in the database right now, and it is a truncated version of the hindi alphabet.
 * There is an issue with refreshing while inside of a lesson. This triggers a permanent 'loading' state.
-* The navigation is subpar, there needs to be a way for a user to get back to the lesson selector page, and currently the only way is to use the browser back button.
 * Currently, the quiz will go on indefinitely, and the only feedback A user recieves is whether or not they got the question right. We plan on implementing an end to the quiz when the user has answered a certain number of questions, this quiz end state will have feedback on the user's overall performance on the quiz.
 * The truthiness of an answer choice is currently held in the value of the radio button. This isn't good for production because anyone who knows how to use chrome devtools can easily see which answer is correct, but it was super helpful during development.
