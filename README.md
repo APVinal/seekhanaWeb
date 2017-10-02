@@ -4,6 +4,11 @@ What is Seekhana?
 -----------------
 सीखना (Transliteration: 'seekhana' or 'seekhna') is a Hindi word that, as a transitive verb, translates to english as 'to get' or 'to learn'. This is an app designed to help an english speaker pick up the basics of Hindi - the MVP focuses on the hindi alphabet.
 
+Live Version
+------------
+http://seekhana.herokuapp.com/
+
+
 The Project
 ------------
 Seekhana is an experimental app designed primarily for the creators to try our hand at creating a practical spaced repetition algorithm. It also served as a sandbox for learning the basics of CSS grid, as well as dealing with difficult layout tasks - such as keeping the aspect ratio of the question cards in tact while being responsive. The premise of the app is to teach the basics of Hindi to an english speaker, however this app is currently not ready to teach someone hindi. We'd love to get it to that point someday soon though, as there is a niche that needs filling when it comes to learning this beautiful language.
